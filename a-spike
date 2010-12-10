@@ -12,6 +12,7 @@ if [ ! -d $1/docs ]; then
   sudo mkdir $1/docs
   sudo cp SpikeOutcomeTemplate.doc $1/docs
   sudo cp SpikePlanTemplate.doc $1/docs
+  echo 'Templates copied to '$1'/docs folder'
 else
   echo 'docs folder already created'
 fi

@@ -2,7 +2,7 @@
 
 # A simple bash script to create an android project and copy the spike documents to docs folder
 
-export PATH=$PATH:/home/scott/oldworkspace/Android\ SDK/android-sdk-linux_x86/tools
+export PATH=$PATH:/home/scott/workspace/android-sdk-linux_x86/tools
 if [ ! -d $1 ]; then 
   android create project -n $1 -k swin.rat -p $1 -t android-8 -a MainActivity
 else
@@ -12,6 +12,7 @@ if [ ! -d $1/docs ]; then
   sudo mkdir $1/docs
   sudo cp SpikeOutcomeTemplate.doc $1/docs
   sudo cp SpikePlanTemplate.doc $1/docs
+  echo 'Templates copied to '$1'/docs folder
 else
   echo 'docs folder already created'
 fi
