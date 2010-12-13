@@ -4,7 +4,7 @@
 
 export PATH=$PATH:/home/scott/workspace/android-sdk-linux_x86/tools
 if [ ! -d $1 ]; then 
-  android create project -n $1 -k swin.rat -p $1 -t android-8 -a MainActivity
+  android create project -n $1 -k swin.rat -p $1 -t android-8 -a $1Activity
 else
   echo 'No project name or project already created with that name'
 fi
