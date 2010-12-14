@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">FormLayoutActivity</string>
+	<string name="textId">textName</string>
+	<string name="name">Name</string>
+	<string name="location_prompt">Location:</string>
+	<string-array name="fruit">
+		<item>Apple</item>
+		<item>Pear</item>
+		<item>Blue berry</item>
+		<item>Orange</item>
+		<item>Apricot</item>
+		<item>Star fruit</item>
+		<item>Peach</item>
+		<item>Plum</item>
+		<item>Lemon</item>
+		<item>Lime</item>
+		<item>Tomato</item>
+		<item>Plumcot</item>
+	</string-array>
+	<string-array name="locations">
+		<item>Sydney</item>
+		<item>Melbourne</item>
+		<item>Wellington</item>
+		<item>Zurich</item>
+		<item>Mars</item>
+	</string-array>
+</resources>
