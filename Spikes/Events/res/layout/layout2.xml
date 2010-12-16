@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical">
+  <TextView
+  	android:layout_width="fill_parent"
+  	android:layout_height="wrap_content"
+  	android:id="@+id/textview"
+  	android:text="Word"
+  	android:textSize="35px"
+  	/>
+  <EditText
+  	android:layout_below="@id/textview"
+  	android:layout_width="fill_parent"
+  	android:id="@+id/edittext"
+  	android:layout_height="wrap_content"
+  	android:singleLine="true"
+  	android:hint="Word"/>
+ 
+  <TextView
+  	android:layout_width="wrap_content"
+  	android:layout_height="wrap_content"
+  	android:layout_alignParentRight="true"
+    android:layout_marginLeft="10dip"
+    android:layout_marginRight="50dip"
+  	android:layout_below="@id/edittext"
+  	android:id="@+id/num"
+  	android:textSize="35px"
+  	android:text=" 0 "/>
+  	 <TextView
+  	android:layout_width="wrap_content"
+  	android:layout_height="wrap_content"
+  	android:text="Word size:"
+  	android:textSize="35px"
+  	android:layout_toLeftOf="@id/num"
+    android:layout_alignTop="@id/num"
+  	android:id="@+id/textview2"
+  	/>
+  	<Button
+  		android:text="Next"
+  		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/textview2"
+		android:layout_centerHorizontal="true"
+		android:visibility="invisible"
+		android:id="@+id/destroy"
+  		/>
+  		
+</RelativeLayout>

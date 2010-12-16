@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/screen"
+    >
+    <TextView  
+		android:id="@+id/textView"
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:text="Word: "
+    	android:textSize="20dip"
+    	android:layout_margin="10dip"
+    />
+    <LinearLayout
+    	android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_margin="10dip"
+    	>
+  		<EditText
+   		android:layout_width="wrap_content"
+   		android:layout_height="wrap_content"
+   		android:layout_below="@id/textView"
+   		android:layout_alignParentLeft="true"
+   		android:singleLine="true"
+   		android:layout_weight="100"
+   		android:id="@+id/word"/>
+     	<Button
+   		android:layout_width="wrap_content"
+   		android:id="@+id/go"
+   		android:layout_height="wrap_content"
+   		android:layout_alignParentRight="true"
+   		android:layout_below="@id/textView"
+   		android:layout_toRightOf="@id/word"
+   		android:layout_weight="1"
+   		android:text="GO!"
+   		/>
+ 	</LinearLayout>
+ 	<LinearLayout
+ 		android:orientation="horizontal"
+ 		android:layout_width="fill_parent"
+ 		android:layout_height="wrap_content">
+ 	<TextView
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	
+    	android:text="Meaning: "
+    	android:layout_margin="10dip"
+    	android:textSize="20dip"/>
+    	 <Button
+    	android:layout_width="wrap_content"
+    	android:visibility="invisible"
+   		android:id="@+id/save"
+   		android:layout_height="wrap_content"
+   		android:text="Save Definition"
+   		android:layout_margin="10dip"   		
+   		/>
+   	</LinearLayout>	
+  	<EditText
+  	android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:id="@+id/meaning"
+    android:gravity="top"
+    android:lines="10"
+    android:textSize="20dip"/>
+   
+</LinearLayout>
