@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+	<TextView  
+    	android:text="Name"
+		/>
+    <EditText
+    	android:id="@+id/text"
+    	android:hint="Name"
+    	
+    	/>
+    <Button
+    	android:id="@+id/bttn"
+    	android:layout_width="wrap_content"
+    	android:text="Save"
+    	android:layout_gravity="center_horizontal"
+    	/>
+    <ListView
+    	android:id="@+id/list"
+    	
+    	android:entries="@array/styles"
+    	/>
+    <TextView
+    	android:scrollbars="vertical"
+    	android:id="@+id/textview"
+    	android:maxLines="40"
+    	android:layout_height="fill_parent"
+    	/>
+
+</LinearLayout>
+

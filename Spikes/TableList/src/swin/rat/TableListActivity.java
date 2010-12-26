@@ -21,7 +21,7 @@ public class TableListActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
+        this.setTheme(android.R.style.Theme_Translucent);
         list = (ListView)findViewById(R.id.listPeople);
         
         // To create your own list of views define a view in an xml layout and call it instead 

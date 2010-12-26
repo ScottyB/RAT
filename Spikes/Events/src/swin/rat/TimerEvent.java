@@ -25,9 +25,7 @@ public class TimerEvent extends Activity implements OnTouchListener
 		timerField = (TextView) findViewById(R.id.timer); 
 		final View lay = findViewById(R.id.layout);
 		lay.setOnTouchListener(this);
-		
-		
-		
+			
 			
 		if( savedInstanceState != null)
 		{
@@ -39,10 +37,6 @@ public class TimerEvent extends Activity implements OnTouchListener
 		}
 		else
 			countDown = new MyCount(10000,1000);
-			
-			
-		
-		
 	}
 	
 	@Override

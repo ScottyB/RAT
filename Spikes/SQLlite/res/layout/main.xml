@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/main"
+    >
+    <TextView
+    	android:id="@+id/text"
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:text="text"/>		
+	<Button
+		android:id="@+id/button"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/android_button" />
+    <Button
+		android:id="@+id/button2"
+		android:layout_above="@id/button"	
+		android:layout_alignLeft="@id/button"	
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/android_button" />
+    <TextView
+        	android:layout_above="@id/button2"
+        	android:layout_alignRight="@id/button2"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="Touch!"
+           	/>
+        <LinearLayout
+        	android:orientation="horizontal"
+        	android:layout_alignParentBottom="true"
+        	android:layout_width="fill_parent"  
+        	android:layout_toLeftOf="@id/button"
+        	android:layout_height="wrap_content" >
+        <EditText
+        	android:id="@+id/txt1"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_weight="3"
+        	android:hint="Name"
+        	/>
+        <EditText
+        	android:id="@+id/txt2"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+           	android:layout_weight="3"
+           	android:hint="Country"
+        	/>
+        <EditText
+        	android:id="@+id/txt3"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+           	android:layout_weight="4"
+           	android:hint="Age"
+        	/>
+	</LinearLayout>	
+</RelativeLayout>
+

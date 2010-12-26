@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="layout_wh">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textSize">20px</item>
+		<item name="android:textColor">#4F6AFF</item>
+		<item name="android:hint">#B2B2B2</item>
+		<item name="android:background">#042065</item>
+	</style>
+	<style name="background">
+		<item name="android:background">#3856FF</item>
+	</style>
+	<style name="list">
+		<item name="android:divider">#ffffff</item>
+		
+		<item name="android:dividerHeight">2px</item>
+	</style>
+	
+</resources>
