@@ -38,9 +38,7 @@ public class FileStyleActivity extends Activity
         
         setContentView(R.layout.main);
         
-        //this.setTheme(android.R.style.Theme_Light);
-        
-        
+      
         txtv = (TextView) findViewById(R.id.textview);
         txtv.setMovementMethod(new ScrollingMovementMethod());
         readFile();
@@ -69,7 +67,7 @@ public class FileStyleActivity extends Activity
 				}
 				else if(position == 1 )
 				{
-					FileStyleActivity.this.setTheme(android.R.style.Theme_Black);
+					
 				}
 				else
 				{

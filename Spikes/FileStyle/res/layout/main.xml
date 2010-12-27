@@ -20,7 +20,6 @@
     	/>
     <ListView
     	android:id="@+id/list"
-    	
     	android:entries="@array/styles"
     	/>
     <TextView
