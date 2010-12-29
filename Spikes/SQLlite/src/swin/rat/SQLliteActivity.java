@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class SQLliteActivity extends Activity implements OnClickListener 
@@ -92,12 +93,18 @@ public class SQLliteActivity extends Activity implements OnClickListener
 	    	EditText v3 = (EditText)findViewById(R.id.txt3);
 	    	String value3 = v3.getText().toString();
 
- 			myDB = this.openOrCreateDatabase("DatabaseName", MODE_PRIVATE, null);
-	    	myDB.execSQL("INSERT INTO " + TableName + " (Name, Country, Age)"  + " VALUES ('"+value1+"', '"+value2+"', "+value3+");");
-	    	
-	    	displayTable();
-	    	myDB.close();
-		
+	    	if( value1.length() == 0 || value2.length() == 0 || value3.length() ==0)
+	    	{
+	    		Toast.makeText(this, "Please add some values", 2).show();
+	    	}
+	    	else
+	    	{
+	    		myDB = this.openOrCreateDatabase("DatabaseName", MODE_PRIVATE, null);
+	    		myDB.execSQL("INSERT INTO " + TableName + " (Name, Country, Age)"  + " VALUES ('"+value1+"', '"+value2+"', "+value3+");");
+	    		
+	    		displayTable();
+	    		myDB.close();
+	    	}
 	}
 		
  	/**

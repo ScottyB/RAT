@@ -28,8 +28,8 @@ public class EventsActivity extends Activity
 				
 			// How to call and load another activity
 				Intent myIntent = new Intent();
-				//myIntent.setClassName("swin.rat", "swin.rat.KeyEvent");
-				myIntent.setClassName("swin.rat","swin.rat.TimerEvent");
+				myIntent.setClassName("swin.rat", "swin.rat.KeyEvent");
+				//myIntent.setClassName("swin.rat","swin.rat.TimerEvent");
 				startActivity(myIntent);
 			}
 		});
