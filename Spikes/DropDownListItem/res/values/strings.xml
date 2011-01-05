@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DropDownListItemActivity</string>
+    <string-array name="People">
+    	<item>Peter</item>
+    	<item>Joanne</item>
+    	<item>Jack</item>
+    	<item>Marry</item>
+    	<item>Robert</item>
+    	<item>James</item>
+    	<item>Lucy</item>
+    	<item>Christine</item>
+    	<item>Alex</item>
+    	<item>Debrah</item>
+    	<item>Julie</item>
+    	<item>Michelle</item>
+    	<item>Elisha</item>
+    	<item>Amy</item>
+    </string-array>
+</resources>
