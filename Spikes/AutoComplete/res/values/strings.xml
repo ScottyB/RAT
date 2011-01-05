@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AutoCompleteActivity</string>
+    <string-array name="values">
+    	<item>Tree</item>
+    	<item>The</item>
+    	<item>Turnip</item>
+    	<item>Turtle</item>
+    	<item>Tortoise</item>
+    	<item>Title</item>
+    </string-array>
+</resources>
