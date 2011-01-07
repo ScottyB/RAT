@@ -8,7 +8,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
@@ -72,7 +71,7 @@ public class InteractionFlow1Activity extends Activity implements OnTouchListene
 				Intent lInt = new Intent(InteractionFlow1Activity.this,SelectionActivity.class);
 				lInt.putExtras(mBundle);
 				startActivity(lInt);
-				finish();
+				// OnFinish(); Will close the application when it returns to this screen !!!
 			}
         });
    
