@@ -6,11 +6,11 @@
     <Button
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:text="Exsiting Patient"
+	android:text="Existing Patient"
 	android:textSize="30sp"
 	android:padding="30dp"
 	android:layout_centerInParent="true"
-	android:id="@+id/exisitingBttn"
+	android:id="@+id/existingBttn"
 	/>
 <TextView  
     android:layout_width="fill_parent" 
@@ -28,7 +28,7 @@
 	android:padding="30dp"
 	android:id="@+id/newBttn"
 	android:layout_centerHorizontal="true"
-	android:layout_below="@id/exisitingBttn"
+	android:layout_below="@id/existingBttn"
 	/>
 
 </RelativeLayout>

@@ -19,7 +19,7 @@ public class HomeActivity extends Activity
         Utils.receiveClosingBroadcast(this);
         
         Button newBttn = (Button) findViewById(R.id.newBttn);
-        Button existingBttn = (Button) findViewById(R.id.exisitingBttn);
+        Button existingBttn = (Button) findViewById(R.id.existingBttn);
         
         newBttn.setOnClickListener(new OnClickListener()
         {

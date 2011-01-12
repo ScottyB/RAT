@@ -25,6 +25,7 @@ public final class R {
         public static final int icon=0x7f020007;
         public static final int neck1=0x7f020008;
         public static final int neck2=0x7f020009;
+        public static final int textfield_default=0x7f02000a;
     }
     public static final class id {
         public static final int auto=0x7f070009;
@@ -32,7 +33,7 @@ public final class R {
         public static final int description=0x7f07000b;
         public static final int displayBttn=0x7f070006;
         public static final int email=0x7f070004;
-        public static final int exisitingBttn=0x7f070007;
+        public static final int existingBttn=0x7f070007;
         public static final int gallery=0x7f07000a;
         public static final int img=0x7f070012;
         public static final int layout=0x7f070011;

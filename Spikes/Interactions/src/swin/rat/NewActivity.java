@@ -1,5 +1,8 @@
 package swin.rat;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,7 +21,11 @@ import android.widget.Toast;
 
 public class NewActivity extends Activity implements OnClickListener
 {
-	private EditText mName;
+	private FormEditText mName;
+	private FormEditText mEmail;
+	private Pattern pattern;
+	private Matcher matcher;
+	private static final String EMAIL_PATTERN ="^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	
 	@Override
 	public void onCreate( Bundle b)
@@ -29,8 +36,8 @@ public class NewActivity extends Activity implements OnClickListener
 		Utils.receiveClosingBroadcast(this);
 		
 		Button bttn = (Button) findViewById(R.id.newBttn);
-		mName = (EditText) findViewById(R.id.name);
-		
+		mName = (FormEditText) findViewById(R.id.name);
+		mEmail = (FormEditText) findViewById(R.id.email);
 		bttn.setOnClickListener(this);
 		
 	}
@@ -39,16 +46,24 @@ public class NewActivity extends Activity implements OnClickListener
 	public void onClick(View arg0) 
 	{
 		// TODO Auto-generated method stub
-		if(mName.getText().length() == 0)
+		if(mEmail.getText().length() == 0)
 		{
-			Toast.makeText(this, "Please enter a Name", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Please enter an Email", Toast.LENGTH_SHORT).show();
 			
 		}	
 		else
 		{
-			Intent myIntent = new Intent();
-			myIntent.setClassName("swin.rat", "swin.rat.SessionActivity");
-			startActivity(myIntent);
+			if( !validateEmail(mEmail.getText().toString()))
+			{
+				mEmail.setState(FormEditText.INVALID);
+			}
+			else
+			{
+				mEmail.setState(FormEditText.VALID);
+				Intent myIntent = new Intent();
+				myIntent.setClassName("swin.rat", "swin.rat.SessionActivity");
+				startActivity(myIntent);
+			}
 			
 		}
 	}
@@ -64,4 +79,11 @@ public class NewActivity extends Activity implements OnClickListener
 	{
 		return false;
 	}
+	
+	public boolean validateEmail(final String text)
+    {
+    	pattern = Pattern.compile(EMAIL_PATTERN);
+    	matcher = pattern.matcher(text);
+    	return matcher.matches();
+    }
 }
