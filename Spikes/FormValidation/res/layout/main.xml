@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/layout"
+    >
+	<TextView  
+    	android:layout_width="fill_parent" 
+    	android:layout_height="wrap_content" 
+    	android:text="Phone Number"
+    	/>
+    <EditText
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:id="@+id/num"
+    	
+    	android:singleLine="true"
+    	android:hint="10 Digit Mobile Number"
+    	android:inputType="phone"
+    	
+    	
+    	/>
+    <TextView	
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="Email"
+    	/>
+	<swin.rat.ClearableEditText
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:id="@+id/email"
+    	android:inputType="textEmailAddress"
+    	android:hint="Email Address"
+    	android:drawableRight="@android:drawable/ic_input_delete"
+    	
+    	/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/x"
+        android:id="@+id/ButtonTest"
+        android:text="This is text"></Button>
+    	   
+</LinearLayout>
+

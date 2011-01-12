@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<style name="red_edittext" parent="@android:style/Widget.EditText">
+ 	<item name="android:focusable">true</item>
+ 	<item name="android:focusableInTouchMode">true</item>
+ 	<item name="android:clickable">true</item>
+ 	<item name="android:background">@drawable/red_edit_text</item>
+ 	
+ 	<item name="android:gravity">center_vertical</item>
+ 	
+ 	
+ </style>
+ 
+ 
+ 
+ </resources>
