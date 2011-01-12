@@ -11,6 +11,7 @@ import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,7 +34,7 @@ public class ImageScalingActivity extends Activity implements OnTouchListener, O
 	private ArrayList<Point> mMarkers;
 	private ImageView mTouchSurface;
 	private Button bttn;
-	private float mScale;
+	
 	private float ratio;
 	private Point lastPoint;
 	
@@ -49,27 +50,52 @@ public class ImageScalingActivity extends Activity implements OnTouchListener, O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         mTouchSurface = (ImageView) findViewById(R.id.img);
-        mTouchSurface.setOnTouchListener(this);
+        
         lastPoint = new Point();
         mPoints = new ArrayList<BodyPoint>();
         mMarkers = new ArrayList<Point>();
+        txt = (TextView) findViewById(R.id.txt);
+        layout = (RelativeLayout) findViewById(R.id.layout);
+        views = layout.getChildCount();
+        
+        
        
-       
-       
+        
         Bitmap b = BitmapFactory.decodeResource(getResources(),R.drawable.human);
+        BitmapDrawable bit = new BitmapDrawable(b);
         Matrix matrix = new Matrix();
         // resize the bit map
         
         Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
 	    int width = display.getWidth(); 
-	    int height = MeasureSpec.getSize(display.getHeight());
 	    
-	    int imgW = b.getWidth();
-	    int imgH = b.getHeight();
+	    
+	    int imgW = bit.getIntrinsicWidth();
+	    int imgH = bit.getIntrinsicHeight();
 	     
-	     ratio=1;
+	    DisplayMetrics metrics = new DisplayMetrics();
+	    getWindowManager().getDefaultDisplay().getMetrics(metrics);
+	    int height = 0;
 	    
-	     if(width < imgW || height < imgH)
+	    switch (metrics.densityDpi) {
+	        case DisplayMetrics.DENSITY_HIGH:
+	             height = display.getHeight() - 48;
+	            break;
+	        case DisplayMetrics.DENSITY_LOW:
+	           
+	            height = display.getHeight() - 32;
+	            break;
+	        case DisplayMetrics.DENSITY_MEDIUM:
+	            height = display.getHeight() - 24;
+	            break;
+	        default:
+	          // Log.i("display", "Unknown density");
+	    }    
+	    
+	    
+	     ratio=1f;
+	   
+	     if(width < imgW || height < imgH )
 	     {
 	    	 ratio = (float)width / (float)imgW; 
 	    	 
@@ -77,46 +103,21 @@ public class ImageScalingActivity extends Activity implements OnTouchListener, O
 		     {
 	    		 ratio = (float)height / (float)imgH;
 	    	 }
-	    	 
-	    	 
-	    	 
-	    	 matrix.postScale(ratio,ratio);
+	    	 	matrix.postScale(ratio,ratio);
 	         
 	         // recreate the new Bitmap
 	         resizedBitmap = Bitmap.createBitmap(b, 0, 0,imgW, imgH, matrix, true); 
-	         
-	         mTouchSurface.setBackgroundDrawable(new BitmapDrawable(resizedBitmap));
-	     }
+	     }	
 	     else
 	     {
-	    	  // Set image resource src to have android maintain aspect ratio
-	         // Set background image to strectch to view
-	         mTouchSurface.setImageResource(R.drawable.human);
+	    	 resizedBitmap = b;
 	     }
-        
-        
-        
-       
-        
-        
-        
-        
-        txt = (TextView) findViewById(R.id.txt);
-       
-        
-        layout = (RelativeLayout) findViewById(R.id.layout);
-       
-        
-        views = layout.getChildCount();
-        
-        mScale = getResources().getDisplayMetrics().density;
-        
-       
-     
-    
+	     mTouchSurface.setBackgroundDrawable(new BitmapDrawable(resizedBitmap));
+	    
+            
         bttn = (Button)findViewById(R.id.bttn);
         bttn.setOnClickListener(this);
-        
+        mTouchSurface.setOnTouchListener(this);
         
     }
     
@@ -166,13 +167,8 @@ public class ImageScalingActivity extends Activity implements OnTouchListener, O
 				layout.addView(img, Params);
 				mMarkers.add(new Point(x,y));
 				lastPoint = new Point(x,y);
-				
 			}
-			
-			txt.setText( "x: "+Integer.toString(x)+" y: "+ Integer.toString(y));
-			
 		}
-		
 		return false;
 	}
 	
@@ -184,13 +180,12 @@ public class ImageScalingActivity extends Activity implements OnTouchListener, O
 			{
 				double distance = BodyPoint.distanceFrom(touchX, touchY,  mMarkers.get(i));
 								
-				if( distance < 40 * mScale )
+				if( distance < 40 * ratio )
 				{
 					layout.removeViewAt(i+views);
 					mMarkers.remove(i);
 					return true;
 				}
-		
 			}
 		}
 		return false;
@@ -203,23 +198,18 @@ public class ImageScalingActivity extends Activity implements OnTouchListener, O
 	{
 		int [] x = getResources().getIntArray(R.array.x);
 		int [] y = getResources().getIntArray(R.array.y);
-	        
-		
-		
-	   //  txt.setText(Double.toString(x[1]*ratio+mTouchSurface.getLeft()));
-	    
+	       
 	        // Need to load points from xml file
-	        // 75 refers to the position offest in the x direction from the left hand side
-	        // 24 is from the top use mTouchSurface.getTop()
-	     mPoints.add(new BodyPoint("Left Ankle",(int)((x[0]+ mTouchSurface.getLeft())*ratio),(int)(y[0]*ratio)));
-	     mPoints.add(new BodyPoint("Neck",(int)((x[1]+ mTouchSurface.getLeft())*ratio),(int)(y[1]*ratio)));
+	        
+	     mPoints.add(new BodyPoint("Left Ankle",(int)(x[0]*ratio)+mTouchSurface.getLeft(),(int)(y[0]*ratio)+mTouchSurface.getTop()));
+	     mPoints.add(new BodyPoint("Neck",(int)(x[1]*ratio)+mTouchSurface.getLeft(),(int)(y[1]*ratio)+mTouchSurface.getTop()));
 	     int index = findClosest(lastPoint);
 	    
 	    
 	   
 	    txt.setText(mPoints.get(index).getName());
-	    
-	}
-	
+	    //txt.setText(Integer.toString(mTouchSurface.getWidth()));
+        
+	}	
 
 }

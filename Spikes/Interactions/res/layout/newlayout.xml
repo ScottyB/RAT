@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
+   	<TextView  
+    	android:layout_width="fill_parent" 
+    	android:layout_height="wrap_content" 
+    	android:text="New Patient"
+    	/>
+    <EditText
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:singleLine="true"
+    	android:id="@+id/name"
+    	android:hint="Name"
+    	/>
+    <ToggleButton
+    	android:id="@+id/togglebutton"
+        android:layout_width="wrap_content"
+   		android:layout_height="wrap_content"
+   		android:textOn="Male"
+   		android:textOff="Female"/>
+    <EditText
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:singleLine="true"
+    	android:id="@+id/phone"
+    	android:hint="Phone"
+    	android:inputType="phone"
+    	/>
+    <EditText
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:singleLine="true"
+    	android:id="@+id/email"
+    	android:hint="Email Address"
+    	android:inputType="textEmailAddress"
+    	/>
+	<Button
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="Continue"
+		android:id="@+id/newBttn"
+	/>
+</LinearLayout>

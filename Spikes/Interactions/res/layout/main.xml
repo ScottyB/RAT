@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <Button
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="Exsiting Patient"
+	android:textSize="30sp"
+	android:padding="30dp"
+	android:layout_centerInParent="true"
+	android:id="@+id/exisitingBttn"
+	/>
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="Welcome to the R.A.T"
+    android:gravity="center"
+    android:textSize="50sp"
+    android:layout_alignParentTop="true"
+    />
+    <Button
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="New Patient"
+	android:textSize="30sp"
+	android:padding="30dp"
+	android:id="@+id/newBttn"
+	android:layout_centerHorizontal="true"
+	android:layout_below="@id/exisitingBttn"
+	/>
+
+</RelativeLayout>
+
