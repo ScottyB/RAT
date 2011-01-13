@@ -2,32 +2,28 @@ package swin.rat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ExpandableListView;
-import android.widget.SimpleExpandableListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class HistoryActivity extends Activity implements OnClickListener, OnItemLongClickListener
+public class HistoryActivity extends Activity implements OnClickListener, OnItemClickListener
 {
 	static final private int HOME =1;	// Menu
 	static final private String NAME = "people";	// Name of list
-	private ExpandableListView mList;
+	private ListView mList;
 	
 	private ArrayList<HashMap<String,String>> mHeader;
 	private ArrayList<ArrayList<HashMap<String,Object>>> mChild;
@@ -42,65 +38,57 @@ public class HistoryActivity extends Activity implements OnClickListener, OnItem
 		
 		
 		Button lNew = (Button) findViewById(R.id.newBttn);
-		Button lDisplay = (Button ) findViewById(R.id.displayBttn);
+		
 		TextView lName = (TextView) findViewById(R.id.name);
 		String name = this.getIntent().getExtras().getString("name");
 		lName.setText(name);
 		lNew.setOnClickListener(this);
 		
-		mList = (ExpandableListView) findViewById(R.id.list);
+		mList = (ListView) findViewById(R.id.list);
 		
 		mHeader = new ArrayList<HashMap<String,String>>();
 		mChild = new ArrayList<ArrayList<HashMap<String,Object>>>();
 
-		 mList.setOnItemLongClickListener( this );
+		 mList.setOnItemClickListener( this );
 		
 		
 		populateHeaders();
 		populateNotes();
 		
-		lDisplay.setOnClickListener(new OnClickListener()
-		{
-
-			@Override
-			public void onClick(View v) 
-			{
-				Intent myIntent = new Intent();
-				myIntent.setClassName("swin.rat", "swin.rat.FeedbackActivity");
-				startActivity(myIntent);
-				
-			}
-			
-		});
-		final LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mList.setAdapter( new SimpleExpandableListAdapter(
-	            this,
-	            mHeader,
-	            android.R.layout.simple_expandable_list_item_1,
-	            new String[] { NAME },            // the name of the field data
-	            new int[] { android.R.id.text1 }, // the text field to populate with the field data
-	            mChild,
-	            0,
-	            null,
-	            new int[] {}
-	        	) {
-	            @Override
-	            public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) 
-	            {
-                	final View v = super.getChildView(groupPosition, childPosition, isLastChild, convertView, parent);
-                	String text = (String) ((Map<String,Object>)getChild(groupPosition, childPosition)).get(NAME);
-                	((TextView)v).setText(text);
-                	return v;
-	           }
-
-	            @Override
-	            public View newChildView(boolean isLastChild, ViewGroup parent) 
-	            {
-	            	
-	            	return layoutInflater.inflate(android.R.layout.simple_expandable_list_item_1, null, false);
-	            }
-	        }
-	    );
+		
+		String [] temp ={"16-Aug-34, 1 Exercise","21-Aug-34, 4 Exercises", "3-Sep-34, 3 Exercises",
+				"01-Jan-99, 1 Exercise","03-Feb-99, 4 Exercises", "09-Mar-99, 5 Exercises"};
+		
+		mList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, temp));
+//		final LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//		mList.setAdapter( new SimpleExpandableListAdapter(
+//	            this,
+//	            mHeader,
+//	            android.R.layout.simple_expandable_list_item_1,
+//	            new String[] { NAME },            // the name of the field data
+//	            new int[] { android.R.id.text1 }, // the text field to populate with the field data
+//	            mChild,
+//	            0,
+//	            null,
+//	            new int[] {}
+//	        	) {
+//	            @Override
+//	            public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) 
+//	            {
+//                	final View v = super.getChildView(groupPosition, childPosition, isLastChild, convertView, parent);
+//                	String text = (String) ((Map<String,Object>)getChild(groupPosition, childPosition)).get(NAME);
+//                	((TextView)v).setText(text);
+//                	return v;
+//	           }
+//
+//	            @Override
+//	            public View newChildView(boolean isLastChild, ViewGroup parent) 
+//	            {
+//	            	
+//	            	return layoutInflater.inflate(android.R.layout.simple_expandable_list_item_1, null, false);
+//	            }
+//	        }
+//	    );
 	}
 
 	
@@ -119,8 +107,17 @@ public class HistoryActivity extends Activity implements OnClickListener, OnItem
 		           {
 					Intent myIntent = new Intent(HistoryActivity.this, SelectionActivity.class);
 					Bundle b = new Bundle();
-					b.putString("0", "Ankle");
-					b.putString("1", "Neck");
+					ArrayList<String> temp = new ArrayList<String>();
+					temp.add("one");
+					temp.add("two");
+					temp.add("one");
+					ArrayList<String> temp2 = new ArrayList<String>();
+					temp2.add("Ankle");
+					temp2.add("Neck");
+					b.putBoolean("gallery", true);
+					b.putStringArrayList("bodyPoints", temp2);
+					b.putBoolean("state", SelectionActivity.STATE_SELECTION);
+					b.putStringArrayList("activities", temp);
 					myIntent.putExtras(b);
 					startActivity(myIntent);      		  
 		        	  
@@ -221,7 +218,7 @@ public class HistoryActivity extends Activity implements OnClickListener, OnItem
 	}
 	
 	@Override
-	public boolean onItemLongClick(AdapterView<?> arg0, View v,	int position, long arg3) 
+	public void onItemClick(AdapterView<?> arg0, View v,	int position, long arg3) 
 	{
 		Bundle b = new Bundle();
 		b.putString("name", ((TextView)v).getText().toString());
@@ -229,6 +226,6 @@ public class HistoryActivity extends Activity implements OnClickListener, OnItem
 		Intent myIntent = new Intent(HistoryActivity.this, FeedbackActivity.class);
 		myIntent.putExtras(b);
 		startActivity(myIntent);
-		return false;
+		
 	}
 }

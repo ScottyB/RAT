@@ -7,9 +7,12 @@
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:text="Existing Patient"
+	android:layout_margin="5dip"
 	android:textSize="30sp"
 	android:padding="30dp"
-	android:layout_centerInParent="true"
+	android:ems="8"
+	android:layout_centerHorizontal="true"
+	android:layout_below="@id/newBttn"
 	android:id="@+id/existingBttn"
 	/>
 <TextView  
@@ -27,8 +30,9 @@
 	android:textSize="30sp"
 	android:padding="30dp"
 	android:id="@+id/newBttn"
-	android:layout_centerHorizontal="true"
-	android:layout_below="@id/existingBttn"
+	android:layout_centerInParent="true"
+	android:layout_margin="5dip"
+	android:ems="8"
 	/>
 
 </RelativeLayout>

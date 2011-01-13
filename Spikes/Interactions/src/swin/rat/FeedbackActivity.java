@@ -10,10 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class FeedbackActivity extends Activity
 {
@@ -44,8 +46,11 @@ public class FeedbackActivity extends Activity
 			{
 				Intent myIntent1 = new Intent(FeedbackActivity.this, SelectionActivity.class);
 				Bundle b = new Bundle();
-				b.putString("0", "Ankle");
-				b.putString("1", "Neck");
+				ArrayList<String> temp = new ArrayList<String>();
+				temp.add("Ankle");
+				temp.add("Neck");
+				b.putStringArrayList("bodyPoints", temp);
+				b.putBoolean("state", SelectionActivity.STATE_SELECTION);
 				myIntent1.putExtras(b);
 				startActivity(myIntent1);
 				
@@ -64,7 +69,24 @@ public class FeedbackActivity extends Activity
 		Log.i("tag","NO");
 		String [] temp = new String[values.size()];
 		list.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,values.toArray(temp)));
-		
+		list.setOnItemClickListener(new OnItemClickListener()
+		{
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) 
+			{
+				Intent myIntent = new Intent(FeedbackActivity.this, SelectionActivity.class);
+				Bundle b = new Bundle();
+				ArrayList<String> temp = new ArrayList<String>();
+				temp.add("one");
+				b.putBoolean("state", SelectionActivity.STATE_DISPLAY);
+				b.putStringArrayList("activities", temp);
+				myIntent.putExtras(b);
+				startActivity(myIntent); 
+				
+			}
+			
+		});
 	}
 	
 	@Override
@@ -79,24 +101,25 @@ public class FeedbackActivity extends Activity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
     {
-		
+		Intent myIntent = new Intent();
 		switch(item.getItemId())
 		{
 			case HOME: 
 				Utils.returnHomeNoMessage(this);
 				break;
 			case SESSION:
-				Intent myIntent = new Intent();
 				myIntent.setClassName("swin.rat","swin.rat.SessionActivity");
 				startActivity(myIntent);
 				break;
 			case SELECTION:
-				Intent myIntent1 = new Intent(FeedbackActivity.this, SelectionActivity.class);
+				myIntent = new Intent(FeedbackActivity.this, SelectionActivity.class);
 				Bundle b = new Bundle();
-				b.putString("0", "Ankle");
-				b.putString("1", "Neck");
-				myIntent1.putExtras(b);
-				startActivity(myIntent1);
+				ArrayList<String> temp = new ArrayList<String>();
+				temp.add("one");
+				b.putBoolean("state", SelectionActivity.STATE_DISPLAY);
+				b.putStringArrayList("activities", temp);
+				myIntent.putExtras(b);
+				startActivity(myIntent);
 				break;
 			default:
 				return false;

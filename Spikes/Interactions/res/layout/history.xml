@@ -13,7 +13,9 @@
     <TextView
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
-    	android:text="scott@hotmail.com"
+    	android:text="scottpeterjacksonrobetsjonesjamesnathanmicheallben@hotmail.com"
+    	android:ems="10"
+    	android:singleLine="true"
     	android:id="@+id/email"
     	android:layout_below="@id/name"
     	android:layout_margin="2dip"/>
@@ -25,28 +27,32 @@
     	android:id="@+id/phone"
     	android:layout_below="@id/name"
     	android:layout_toRightOf="@id/email"/>	
-    <ExpandableListView
+    
+	<LinearLayout
+		android:orientation="horizontal"
+		android:id="@+id/layout"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		>
+	<Button
+	style="@style/button"
+	android:text="New"
+	android:id="@+id/newBttn"
+	android:layout_weight="1"
+	
+	/>
+	<Button
+	android:text="Import"
+	android:id="@+id/tempp"
+	android:layout_weight="1"
+	style="@style/button"
+	/></LinearLayout>
+	<ListView
+		
     	android:id="@+id/list"
+    	android:layout_above="@id/layout"
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
     	android:layout_below="@id/email"/>
-	<Button
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:text="Display"
-	android:id="@+id/displayBttn"
-	android:padding="15dip"
-	android:textSize="20sp"
-	android:visibility="invisible"
-	    android:layout_above="@id/newBttn"
-	/>
-	<Button
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:text="New"
-	android:id="@+id/newBttn"
-	android:textSize="20sp"
-	android:padding="15dip"
-	    android:layout_alignParentBottom="true"
-	/>
 </RelativeLayout>

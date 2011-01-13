@@ -33,6 +33,9 @@ public class SessionActivity extends Activity implements OnTouchListener, OnClic
 	static final private int HOME = 1;
 	static final private int NEW = 2;
 	
+
+	
+	
 	private Bundle mPassBundle;
 	
 	private ArrayList<BodyPoint> mPoints;
@@ -122,17 +125,17 @@ public class SessionActivity extends Activity implements OnTouchListener, OnClic
 	@Override
 	public void onClick(View arg0) 
 	{
-		//if( mViewCount != mLayout.getChildCount())
-		//{
+		if( mViewCount != mLayout.getChildCount())
+		{
 			Intent myIntent = new Intent(SessionActivity.this, SelectionActivity.class);
 			populateBundle();
 			myIntent.putExtras(mPassBundle);
 			startActivity(myIntent);
-	//	}
-		//else
-		//{
-		//	Toast.makeText(this, "Please select a body part", Toast.LENGTH_SHORT).show();
-		//}
+		}
+		else
+		{
+			Toast.makeText(this, "Please select a body part", Toast.LENGTH_SHORT).show();
+		}
 		
 	}
 	
@@ -246,7 +249,7 @@ public class SessionActivity extends Activity implements OnTouchListener, OnClic
 		int [] x = getResources().getIntArray(R.array.x);
 		int [] y = getResources().getIntArray(R.array.y);
 	       
-	    mPoints.add(new BodyPoint("Left Ankle",scaleX(x[0]),scaleY(y[0])));
+	    mPoints.add(new BodyPoint("Ankle",scaleX(x[0]),scaleY(y[0])));
 	    mPoints.add(new BodyPoint("Neck",scaleX(x[1]),scaleY(y[1])));
 	}
 	
@@ -262,8 +265,11 @@ public class SessionActivity extends Activity implements OnTouchListener, OnClic
 			if(!storedNames.contains(lName))
 			{
 				storedNames.add(lName);
-				mPassBundle.putString(Integer.toString(i), lName);
+				
 			}
+			
 		}
+		mPassBundle.putStringArrayList("bodyPoints", storedNames );
+		mPassBundle.putBoolean("state", SelectionActivity.STATE_SELECTION);
 	}
 }

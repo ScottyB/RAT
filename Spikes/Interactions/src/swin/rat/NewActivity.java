@@ -71,13 +71,21 @@ public class NewActivity extends Activity implements OnClickListener
 	@Override
 	public void onBackPressed()
 	{
-		Utils.returnHome(this);
+		if( !hasGotData() )
+		{
+			Utils.returnHome(this);
+		}
+		else
+		{
+			Utils.returnHomeNoMessage(this);
+		}
+			
 	}
 	
 	// To check if any data will be lost if user exists screen
-	private boolean isGotData()
+	private boolean hasGotData()
 	{
-		return false;
+		return mEmail.isEmpty();
 	}
 	
 	public boolean validateEmail(final String text)

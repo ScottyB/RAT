@@ -7,9 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class FormEditText extends EditText implements TextWatcher
 {
@@ -45,7 +43,6 @@ public class FormEditText extends EditText implements TextWatcher
 		state = VALID;
 	}
 	
-	
 	@Override
     public boolean onTouchEvent(MotionEvent event)
     {
@@ -60,6 +57,8 @@ public class FormEditText extends EditText implements TextWatcher
                     && y>=this.getPaddingTop() && y<=(this.getHeight()-this.getPaddingBottom()))
             {
                 this.setText("");
+                setState(FormEditText.VALID);
+                updateState();
                 event.setAction(MotionEvent.ACTION_CANCEL);//use this to prevent the keyboard from coming up
             }
         }
@@ -90,6 +89,11 @@ public class FormEditText extends EditText implements TextWatcher
 			this.setBackgroundDrawable(getResources().getDrawable(R.drawable.textfield_default));
 		}
 		
+	}
+	
+	public boolean isEmpty()
+	{
+		return (this.getText().length() == 0);
 	}
 	
 	@Override

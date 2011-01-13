@@ -27,7 +27,6 @@ public class Utils
 	    context.registerReceiver(new Reciever((Activity)(context)), intentFilter);
 	}
 
-	
 	static private class Reciever extends BroadcastReceiver
 	{
 		private Activity mToClose;

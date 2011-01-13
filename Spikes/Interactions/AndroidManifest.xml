@@ -3,15 +3,17 @@
       package="swin.rat"
       android:versionCode="1"
       android:versionName="1.0">
-    <application android:label="@string/app_name" android:icon="@drawable/icon" android:theme="@style/MyStyle.Light">
+    <application android:label="@string/app_name" android:icon="@drawable/icon" android:theme="@style/MyStyle">
         <activity android:name="HomeActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 		<action android:name="android.intent.action.MAIN" />
                 		<category android:name="android.intent.category.LAUNCHER" />
         	</intent-filter>
         </activity>
         <activity 	android:name="NewActivity"
+        android:screenOrientation="portrait"
             android:label="@string/app_name">
             <intent-filter>
             	<action android:name="android.intent.action.MAIN" />
@@ -19,7 +21,8 @@
             </intent-filter>
         </activity>
          <activity android:name="SearchActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -48,13 +51,15 @@
             </intent-filter>
         </activity>
         <activity android:name="HistoryActivity"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity android:name="FeedbackActivity"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
