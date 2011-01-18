@@ -12,12 +12,12 @@ import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
@@ -32,10 +32,7 @@ public class SessionActivity extends Activity implements OnTouchListener, OnClic
 {
 	static final private int HOME = 1;
 	static final private int NEW = 2;
-	
-
-	
-	
+		
 	private Bundle mPassBundle;
 	
 	private ArrayList<BodyPoint> mPoints;
@@ -51,8 +48,10 @@ public class SessionActivity extends Activity implements OnTouchListener, OnClic
 	public void onCreate(Bundle b)
 	{
 		super.onCreate(b);
-		setContentView(R.layout.session);
 		
+		
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.session);
 		// Intialising
 		mPoints = new ArrayList<BodyPoint>();
 		mMarkers = new ArrayList<Point>();
@@ -68,7 +67,8 @@ public class SessionActivity extends Activity implements OnTouchListener, OnClic
 		
 		Utils.receiveClosingBroadcast(this);
 		
-		Bitmap temp = BitmapFactory.decodeResource(getResources(),R.drawable.human);
+		
+		Bitmap temp = BitmapFactory.decodeResource(getResources(),R.drawable.muscles);
 		BitmapDrawable bit = new BitmapDrawable(temp);
         Matrix matrix = new Matrix();
         // resize the bit map

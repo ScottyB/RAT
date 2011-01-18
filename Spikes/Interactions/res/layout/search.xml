@@ -15,6 +15,18 @@
     	android:layout_height="wrap_content"
     	android:hint="Name" 
     />
+     <AutoCompleteTextView
+		android:id="@+id/phone"  
+    	android:layout_width="fill_parent" 
+    	android:layout_height="wrap_content"
+    	android:hint="Phone" 
+    />
+     <AutoCompleteTextView
+		android:id="@+id/email"  
+    	android:layout_width="fill_parent" 
+    	android:layout_height="wrap_content"
+    	android:hint="Email" 
+    />
 	<Button
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"

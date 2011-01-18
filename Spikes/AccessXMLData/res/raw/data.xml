@@ -1,0 +1,18 @@
+<people>
+	<person>
+		<name>
+			<firstname>Scott</firstname>
+			<surname>Barnett</surname>
+		</name>
+		<age>22</age>
+		<image>android.resource://swin.rat/drawable/image</image>
+	</person>
+	<person>
+		<name>
+			<firstname>Katie</firstname>
+			<surname>Barnett</surname>
+		</name>
+		<age>19</age>
+		<image>test</image>
+	</person>
+</people>

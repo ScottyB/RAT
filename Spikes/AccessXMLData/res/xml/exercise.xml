@@ -1,0 +1,19 @@
+<Exercise id="">
+	<Name>
+		<Short></Short>
+		<Long></Long>
+	</Name>
+	<BodyZone></BodyZone>
+	<Icon></Icon>
+	<PrimaryImage></PrimaryImage>
+	<Images></Images>
+	<Animation>
+		<Image frame=""></Image>
+	</Animation>
+	<Videostream></Videostream>
+	<Directions>
+		<Freq></Freq>
+		<Reps></Reps>
+		<HoldPosition></HoldPosition>
+	</Directions>
+</Exercise>

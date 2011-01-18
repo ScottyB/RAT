@@ -35,8 +35,12 @@ public class SearchActivity extends Activity implements OnClickListener
 		Button bttn = (Button) findViewById(R.id.newBttn);
 		bttn.setOnClickListener(this);
 		
-	
+		AutoCompleteTextView  email = (AutoCompleteTextView)findViewById(R.id.email);
 
+		ArrayList<String> storeEmails = new ArrayList<String>();
+		storeEmails.add("peter@faraway.com");
+		storeEmails.add("peter@closeby.com");
+		
         mName = (AutoCompleteTextView) findViewById(R.id.auto);
         mStoredNames = new ArrayList<String>();
         mStoredNames.add("Scott1");
@@ -56,8 +60,9 @@ public class SearchActivity extends Activity implements OnClickListener
        
         
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.autocomplete_list_item, mStoredNames);
-              
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, R.layout.autocomplete_list_item, storeEmails);      
         mName.setAdapter(adapter);
+        email.setAdapter(adapter1);
    	}
 	
 	@Override

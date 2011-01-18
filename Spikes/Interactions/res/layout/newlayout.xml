@@ -16,12 +16,19 @@
     	android:id="@+id/name"
     	android:hint="Name"
     	/>
-    <ToggleButton
-    	android:id="@+id/togglebutton"
-        android:layout_width="wrap_content"
-   		android:layout_height="wrap_content"
-   		android:textOn="Male"
-   		android:textOff="Female"/>
+    <RadioGroup
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	
+    	android:orientation="horizontal"
+    >
+    	<RadioButton
+    		android:text="Male"
+    	></RadioButton>
+    	<RadioButton
+    		android:text="Female"
+    	></RadioButton>
+    </RadioGroup>
     <swin.rat.FormEditText
     	android:layout_width="fill_parent"
     	android:layout_height="wrap_content"
@@ -40,7 +47,7 @@
     	/>
 	<Button
 		style="@style/button"
-		android:text="Continue"
+		android:text="Start Diagnostics"
 		android:id="@+id/newBttn"
 	/>
 </LinearLayout>
