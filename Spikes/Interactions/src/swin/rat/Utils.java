@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.widget.Toast;
 
 
 public class Utils 
@@ -82,5 +83,10 @@ public class Utils
 		sendClosingBroadcast(context);
 		myIntent.setClassName("swin.rat", "swin.rat.HomeActivity");
 		context.startActivity(myIntent); 
+	}
+	
+	static public void toast(Context context)
+	{
+		Toast.makeText(context, "The code has reached here", Toast.LENGTH_SHORT).show();
 	}
 }

@@ -12,6 +12,7 @@ import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -130,6 +131,7 @@ public class SessionActivity extends Activity implements OnTouchListener, OnClic
 			Intent myIntent = new Intent(SessionActivity.this, SelectionActivity.class);
 			populateBundle();
 			myIntent.putExtras(mPassBundle);
+			Log.i("tag","safe");
 			startActivity(myIntent);
 		}
 		else
@@ -249,8 +251,12 @@ public class SessionActivity extends Activity implements OnTouchListener, OnClic
 		int [] x = getResources().getIntArray(R.array.x);
 		int [] y = getResources().getIntArray(R.array.y);
 	       
-	    mPoints.add(new BodyPoint("Ankle",scaleX(x[0]),scaleY(y[0])));
-	    mPoints.add(new BodyPoint("Neck",scaleX(x[1]),scaleY(y[1])));
+	    mPoints.add(new BodyPoint("Stomach",scaleX(x[0]),scaleY(y[0])));
+	    mPoints.add(new BodyPoint("Upper Leg",scaleX(x[1]),scaleY(y[1])));
+	    mPoints.add(new BodyPoint("Ankle",scaleX(x[2]),scaleY(y[2])));
+	    mPoints.add(new BodyPoint("Ankle",scaleX(x[3]),scaleY(y[3])));
+	    mPoints.add(new BodyPoint("Upper Arm",scaleX(x[4]),scaleY(y[4])));
+	    mPoints.add(new BodyPoint("Upper Arm",scaleX(x[5]),scaleY(y[5])));
 	}
 	
 	

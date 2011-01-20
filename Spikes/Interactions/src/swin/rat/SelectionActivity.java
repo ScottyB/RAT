@@ -1,15 +1,25 @@
 package swin.rat;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,9 +35,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
-public class SelectionActivity extends Activity implements OnItemClickListener, OnClickListener
+
+
+public class SelectionActivity extends Activity implements OnItemClickListener, OnClickListener, OnItemLongClickListener
 {
 	static final private int HOME = 1;
 	static final private int DELETE = 2;
@@ -35,23 +47,30 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 	static final public boolean STATE_DISPLAY = false;
 	private boolean mState;
 	
-	private Gallery gallery;
-	private ArrayList<Integer> exercises;
-	private DisplayAdapter dap;
-	private String mBack = "This is where the corresponding back exercise description will go";
-	private String mNeck = "This is where the description for the neck exercise will go";
-	private ArrayList<String> parts;
+	private Gallery gallerySelection;
+	private Gallery galleryExercise;
+	//private ArrayList<Integer> exercises;
+	private SelectionAdapter selectAdap;
+
+	
 	private String [] parts2;
 	private TextView name;
 	private TextView des;
 	
 	private ListView lst;
-	private Button deleteBttn;
-	private ImageView img1;
-	private ImageView img2;
-	private ImageView img3;
-	
+		
 	private Button bttn;
+	
+	private ArrayList<Exercise> fExercises;			// All the exercises store in the xml file
+	
+	private ArrayList<Exercise> selectedExercises;		// 
+	private ArrayList<ArrayList<Exercise>> sortedExercises;
+	private ArrayList<String> bodyParts;			// For the list
+	private int currentBodyPart; 			// Find the name by accessing bodyParts
+	
+	private ExerciseAdapter exerciseAdap;
+	
+	
 	
 	@Override
 	public void onCreate(Bundle bundle)
@@ -61,142 +80,127 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		
 		Utils.receiveClosingBroadcast(this);
 		
+				
 		// Link views with code
 		bttn = (Button) findViewById(R.id.next);
-		gallery = (Gallery) findViewById(R.id.gallery);
+		gallerySelection = (Gallery) findViewById(R.id.selection);
+		galleryExercise = (Gallery) findViewById(R.id.exercise);
 		name = (TextView)findViewById(R.id.title);
 		des = (TextView) findViewById(R.id.description);
-		img1 = (ImageView) findViewById(R.id.view);
-		img2 = (ImageView) findViewById(R.id.view1);
-		img3 = (ImageView) findViewById(R.id.view2);
-		deleteBttn = (Button) findViewById(R.id.delete);
-		
 		lst = (ListView) findViewById(R.id.list);
 				
 		// Intialisations
-		parts = new ArrayList<String>(0); // For the list!!!!
-		exercises = new ArrayList<Integer>();
-		dap = new DisplayAdapter(this);
+		//parts = new ArrayList<String>(0); // For the list!!!!
+		//exercises = new ArrayList<Integer>();
+		selectAdap = new SelectionAdapter(this);
+		fExercises = new ArrayList<Exercise>();
+		sortedExercises = new ArrayList<ArrayList<Exercise>>();
+		bodyParts = new ArrayList<String>();
+		selectedExercises = new ArrayList<Exercise>();
+		gallerySelection.setSpacing(10);
+		galleryExercise.setSpacing(20);
 		
-		parts2 = new String[parts.size()];
-				
-		gallery.setOnItemSelectedListener(new OnItemSelectedListener()
-		{
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1,int arg2, long arg3) 
-			{
-				if(exercises.get(gallery.getSelectedItemPosition()) == R.drawable.back1 )
-				{
-					name.setText("Back");
-					des.setText(mBack);
-					img1.setBackgroundResource(R.drawable.back2);
-					img3.setBackgroundResource(R.drawable.back2);
-					img2.setBackgroundResource(R.drawable.back2);
-				}
-				else
-				{
-					name.setText("Neck");
-					des.setText(mNeck);
-					img1.setBackgroundResource(R.drawable.neck2);
-					img3.setBackgroundResource(R.drawable.neck2);
-					img2.setBackgroundResource(R.drawable.neck2);
-				}
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) 
-			{
-				name.setText("");
-				des.setText("");
-				img1.setBackgroundColor(Color.BLACK);
-				img2.setBackgroundColor(Color.BLACK);
-				img3.setBackgroundColor(Color.BLACK);
-			}
-		});
-				
+		currentBodyPart = 0;
+		exerciseAdap = new ExerciseAdapter(this);
+			
 		lst.setOnItemClickListener(this);
-		deleteBttn.setOnClickListener(this);
+		
 		
 		bttn.setOnClickListener(this);
-		
-		
+			
 		processBundle();
+		
+		Log.i("tag", "Bundle Passes");
+		loadExercises();
+		sortExercises();
+		galleryExercise.setAdapter(exerciseAdap);
+		galleryExercise.setOnItemClickListener(this);
+		galleryExercise.setOnItemLongClickListener(this);
+		gallerySelection.setOnItemLongClickListener(this);
+	}
+	
+	
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		AcessObject temp = ((AcessObject)getApplicationContext());
+		if( temp.getToAdd() )
+		{
+			if( selectedExercises.contains(temp.getExercise()))
+			{
+				Toast.makeText(this, "This activity has been assigned already", Toast.LENGTH_SHORT).show();
+				temp.setToAdd(false);
+			}
+			else
+			{
+				selectedExercises.add(temp.getExercise());
+				temp.setExercise(null);
+				temp.setToAdd(false);
+				gallerySelection.setAdapter(selectAdap);
+			}
+		}
 	}
 	
 	private void processBundle()
 	{
+		Log.w("tag", "nope");
 		Bundle bu = getIntent().getExtras();
-		ArrayList<String> temp = new ArrayList<String>();
+		
 		if( bu.getBoolean("state") == SelectionActivity.STATE_SELECTION)
 		{
-			temp = bu.getStringArrayList("bodyPoints");
-			setUpSelectionState( temp );
-			if(bu.containsKey("gallery"))
+			
+			bodyParts = bu.getStringArrayList("bodyPoints");
+			Log.w("tag", "nope1");
+			if(bu.containsKey("selection"))
 			{
-				if(bu.getBoolean("gallery"))
+				if(bu.getBoolean("selection"))
 				{
-					setUpGallery(bu.getStringArrayList("activities"));
+					setUpSelected(bu.getStringArrayList("activities"));
 				}
 			}
 		}
 		else
 		{
-			// Display State
-			temp = bu.getStringArrayList("activities");
-			setUpDisplayState( temp );
+			
 		}
 		
-		
+		name.setText(bodyParts.get(0) + " Exercises");
+		des.setText("Tap an activity to add it to selection");
+		parts2 = new String[bodyParts.size()];
+        Collections.sort(bodyParts);	
+		lst.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, bodyParts.toArray(parts2)));
 	}
 	
 	
 	
-	private void setUpSelectionState( ArrayList<String> bodyPoints )
-	{
-		if( bodyPoints.contains("Ankle"))
-		{
-			parts.add("Ankle");
-			parts.add("Ankle");
-			parts.add("Ankle");
-			parts.add("Ankle");
-		}
-		if( bodyPoints.contains("Neck"))
-		{
-			parts.add("Neck");
-			parts.add("Neck");
-			parts.add("Neck");
-			parts.add("Neck");
-		}
-		
-		// Set up adapter for the list of exercises and the exercise icons in the gallery
-		lst.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, parts.toArray(parts2)));
-		
-	}
+	
 	
 	private void setUpDisplayState( ArrayList<String> activities )
 	{
-		setUpGallery(activities);
+		setUpSelected(activities);
 		lst.setVisibility(View.GONE);
-		deleteBttn.setVisibility(View.GONE);
+		
 		bttn.setVisibility(View.GONE);
-		gallery.setAdapter(dap);
+		gallerySelection.setAdapter(selectAdap);
 	}
 	
 	
-	private void setUpGallery( ArrayList<String> activities )
+	private void setUpSelected( ArrayList<String> activities )
 	{
 		for( String str : activities)
 		{
-			if (str.contains("one"))
+			for(Exercise e: fExercises)
 			{
-				exercises.add(R.drawable.back1);
-			}
-			if( str.contains("two"))
-			{
-				exercises.add(R.drawable.neck1);
+				if(str.equals(e.getShortName()))
+				{
+					selectedExercises.add(e);
+				}
+				
 			}
 		}
-		gallery.setAdapter(dap);
+		gallerySelection.setAdapter(selectAdap);
+		
 	}
 	
 	@Override
@@ -221,12 +225,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		// Save selection before changing???
 	}
 	
-	@Override 
-	public void onResume()
-	{
-		super.onResume();
-		// Load preivous selection???
-	}
+	
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
@@ -247,28 +246,42 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		return true;
     }
 	
+	
 	// Select items from the list
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) 
+	public void onItemClick(AdapterView<?> parent, View view, int position, long arg3) 
 	{
+		if(parent.getId() == lst.getId() )
+		{
+			currentBodyPart = position;
+			galleryExercise.setAdapter(exerciseAdap);
+			name.setText(bodyParts.get(position) + " Exercises");
+		}
 		
-		if( ((TextView)view).getText().toString().contains("Ankle") )
+		if( parent.getId() == galleryExercise.getId() )
 		{
-			exercises.add(R.drawable.back1);
+			Exercise temp = new Exercise();
+			temp = sortedExercises.get(currentBodyPart).get(position);
+			if( selectedExercises.contains(temp))
+			{
+				Toast.makeText(this, "This activity has been assigned already", Toast.LENGTH_SHORT).show();
+			}
+			else
+			{
+				selectedExercises.add( temp );
+				gallerySelection.setAdapter(selectAdap);
+			}
 		}
-		if( ((TextView)view).getText().toString().contains("Neck") )
-		{
-			exercises.add(R.drawable.neck1);
-		}
-		gallery.setAdapter(dap);
+		
+		
 	}
 	
 	// Display for the gallery
-	private class DisplayAdapter extends BaseAdapter
+	private class SelectionAdapter extends BaseAdapter
 	{
 		private int mGalleryBackground;
 		private Context context;
-		DisplayAdapter(Context c)
+		SelectionAdapter(Context c)
 		{
 			context = c;
 			TypedArray a = obtainStyledAttributes(R.styleable.HelloGallery);
@@ -279,7 +292,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		@Override
 		public int getCount() 
 		{
-			return exercises.size();
+			return selectedExercises.size();
 		}
 
 		@Override
@@ -298,7 +311,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		public View getView(int position, View arg1, ViewGroup arg2) 
 		{
 			ImageView i = new ImageView(context);
-			i.setImageResource(exercises.get(position));
+			i.setImageURI(selectedExercises.get(position).getIcon());
 			i.setLayoutParams(new Gallery.LayoutParams(100,100));
 			i.setScaleType(ImageView.ScaleType.FIT_XY);
 			i.setBackgroundResource(mGalleryBackground);
@@ -308,54 +321,61 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		}
 		
 	}
+	
+	private class ExerciseAdapter extends BaseAdapter
+	{
+		private int mGalleryBackground;
+		private Context context;
+		ExerciseAdapter(Context c)
+		{
+			context = c;
+			TypedArray a = obtainStyledAttributes(R.styleable.HelloGallery);
+    		mGalleryBackground = a.getResourceId(R.styleable.HelloGallery_android_galleryItemBackground,0);
+    		a.recycle();
+    	}
+		
+		@Override
+		public int getCount() 
+		{
+			return sortedExercises.get(currentBodyPart).size();
+		}
+
+		@Override
+		public Object getItem(int position)
+		{
+			return position;
+		}
+
+		@Override
+		public long getItemId(int position) 
+		{
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View arg1, ViewGroup arg2) 
+		{
+			ImageView i = new ImageView(context);
+			i.setBackgroundColor(Color.WHITE);
+			i.setImageURI(sortedExercises.get(currentBodyPart).get(position).getPrimaryImage());
+			i.setLayoutParams(new Gallery.LayoutParams(250,250));
+			i.setScaleType(ImageView.ScaleType.FIT_XY);
+			i.setBackgroundResource(mGalleryBackground);
+						
+			return i;
+			
+		}
+		
+	}
+
 
 	// Delete the position
 	@Override
 	public void onClick(View view) 
 	{
-		if(view.equals(deleteBttn)) 
-		{
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Are you sure you want to delete exercise?")
-			       .setCancelable(false)
-			       .setPositiveButton("Yes", new DialogInterface.OnClickListener() 
-			       {
-			           public void onClick(DialogInterface dialog, int id) 
-			           {
-			        	  
-			        		   int position = gallery.getSelectedItemPosition();
-			        		   exercises.remove(position);
-			        		   gallery.setAdapter(dap);
-			        		   // Is gallery now empty?
-			        		   if( gallery.getSelectedItem() == null)
-			        			{
-			        				name.setText("");
-			        				des.setText("");
-			        				img1.setBackgroundColor(Color.BLACK);
-			        				img2.setBackgroundColor(Color.BLACK);
-			        				img3.setBackgroundColor(Color.BLACK);
-			        			}
-			        	  
-				       }
-				   })
-				      
-				   .setNegativeButton("No", new DialogInterface.OnClickListener() 
-				   {
-				       public void onClick(DialogInterface dialog, int id) 
-				       {
-				            // Do nothing if user selects not to delete.  
-				       }
-				   });
-			AlertDialog alert = builder.create();
-			// Don't show dialog if nothing to delete!
-			if(gallery.getSelectedItem() != null)
-	  	   	{
-				alert.show();
-			}
-		}
 		if(view.equals(bttn))
 		{
-			if( gallery.getChildCount() == 0 )
+			if( gallerySelection.getChildCount() == 0 )
 			{
 				Toast.makeText(this, "Please select some exercises from the list", Toast.LENGTH_SHORT).show();
 			}
@@ -364,7 +384,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 				Intent myIntent = new Intent(SelectionActivity.this, OutputActivity.class);
 				Bundle b = new Bundle();
 				
-				b.putIntegerArrayList("activities", exercises);
+				//b.putIntegerArrayList("activities", exercises);
 				
 				myIntent.putExtras(b);
 				startActivity(myIntent);
@@ -372,5 +392,73 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		}
 		
 		
+	}
+	
+	private void loadExercises()
+	{
+		SAXParserFactory saxf = SAXParserFactory.newInstance();
+		try {
+			SAXParser saxp = saxf.newSAXParser();
+			XMLReader xmlr = saxp.getXMLReader();
+			ExerciseHandler handler = new ExerciseHandler();
+			xmlr.setContentHandler(handler);
+			InputStream in = this.getResources().openRawResource(R.raw.exercises);
+			InputSource inputsource = new InputSource(in);
+			xmlr.parse(inputsource);
+			fExercises = (ArrayList<Exercise>)handler.getExercises();
+			
+		} catch (ParserConfigurationException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	private void sortExercises()
+	{
+		for( String s: bodyParts)
+		{
+			ArrayList<Exercise> temp = new ArrayList<Exercise>();
+			for(Exercise e:fExercises)
+			{
+				if( e.isForBodyPart(s))
+				{
+					temp.add(e);
+				}
+			}
+			sortedExercises.add(temp);
+		}
+	}
+
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View arg1, int position, long arg3) 
+	{
+		if( parent.getId() == galleryExercise.getId())
+		{
+			AcessObject temp = ((AcessObject)getApplicationContext());
+			temp.setExercise( sortedExercises.get(currentBodyPart).get(position));
+			temp.setBodyExercises(sortedExercises.get(currentBodyPart));
+			
+			Intent ent = new Intent( SelectionActivity.this, DisplayExerciseActivity.class);
+			Bundle b = new Bundle();
+			b.putInt("ref", position);
+			ent.putExtras(b);
+			
+			startActivity(ent);
+		}
+		
+		if( parent.getId() == gallerySelection.getId())
+		{
+			selectedExercises.remove(position);
+			gallerySelection.setAdapter( selectAdap );
+		}
+		return false;
 	}
 }

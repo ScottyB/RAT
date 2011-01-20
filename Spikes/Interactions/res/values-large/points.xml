@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<integer-array name="x">
-		<item name="neck">150</item>
-		<item>210</item>
+		<item name="Stomach">215</item>
+		<item name="Upper Leg">170</item>
+		<item name="Ankle">165</item>
+		<item name="Ankle">260</item>
+		<item name="Upper Arm">115</item>
+		<item name="Upper Arm">318</item>
 	</integer-array>
 	<integer-array name="y">
-		<item>830</item>
-		<item name="neck">130</item>
+		<item name="Stomach">330</item>
+		<item name="Upper Leg">500</item>
+		<item name="Ankle">780</item>
+		<item name="Ankle">780</item>
+		<item name="Upper Arm">245</item>
+		<item name="Upper Arm">245</item>
 	</integer-array>	
 </resources>
