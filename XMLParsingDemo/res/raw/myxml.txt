@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<outertag>
+	<innertag sampleattribute="innertagAttribute">
+		<mytag>www.codemobiles.com, since</mytag>
+		<tagwithnumber thenumber="2009" />
+	</innertag>
+</outertag>

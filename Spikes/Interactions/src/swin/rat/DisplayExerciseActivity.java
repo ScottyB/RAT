@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
@@ -16,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DisplayExerciseActivity extends Activity implements OnClickListener
 {
@@ -29,6 +31,10 @@ public class DisplayExerciseActivity extends Activity implements OnClickListener
 	private TextView data;
 	private Button forward;
 	private Button back;
+	private Button add;
+	private ArrayList<Exercise> selected;
+	
+	
 	
 	private int reference; // Use to track exercise in the global arrayList 
 	
@@ -41,7 +47,7 @@ public class DisplayExerciseActivity extends Activity implements OnClickListener
 		txt = (TextView) findViewById(R.id.name);
 		des = (TextView) findViewById(R.id.des);
 		data = (TextView) findViewById(R.id.data);
-		Button add = (Button) findViewById(R.id.add);
+		add = (Button) findViewById(R.id.add);
 		forward = (Button) findViewById(R.id.next);
 		back = (Button) findViewById(R.id.back);
 		
@@ -50,11 +56,42 @@ public class DisplayExerciseActivity extends Activity implements OnClickListener
 		exercise = new Exercise();
 		globals = ((AcessObject)getApplicationContext());
 		exercise = globals.getExercise();
-		
+		selected = new ArrayList<Exercise>();
+		selected = globals.getSelectedExercises();
 		loadExercise();
 		
+		
+		Button review = (Button) findViewById(R.id.review);
 		Bundle bundle = getIntent().getExtras();
-		reference = bundle.getInt("ref");
+		if(bundle != null)
+		{
+			if(bundle.containsKey("ref"))
+			{
+				reference = bundle.getInt("ref");
+			}
+		}
+		else
+		{
+			add.setVisibility(View.INVISIBLE);
+			review.setVisibility(View.INVISIBLE);
+			forward.setVisibility(View.INVISIBLE);
+			back.setVisibility(View.INVISIBLE);
+		}
+		
+		review.setOnClickListener(new OnClickListener()
+		{
+
+			@Override
+			public void onClick(View arg0) 
+			{
+				globals.setSelectedExercises(selected);
+				Intent myIntent = new Intent();
+				myIntent.setClassName("swin.rat", "swin.rat.OutputActivity");
+				startActivity(myIntent);
+				
+			}
+			
+		});
 		
 		img.setOnClickListener( new OnClickListener()
 		{
@@ -75,19 +112,17 @@ public class DisplayExerciseActivity extends Activity implements OnClickListener
 			}
 		});
 		
-		add.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View arg0)
-			{
-				globals.setToAdd(true);
-				finish();
-			}
-		});
-		
+		add.setOnClickListener(this);
 		forward.setOnClickListener(this);
 		back.setOnClickListener(this);
 	
+	}
+	
+	@Override
+	public void onBackPressed()
+	{
+		globals.setSelectedExercises(selected);
+		super.onBackPressed();
 	}
 	
 	private void loadExercise()
@@ -118,7 +153,6 @@ public class DisplayExerciseActivity extends Activity implements OnClickListener
 		
 		for( int i=0; i<exercise.getAnimation().size(); i++)
 		{
-			
 			Bitmap temp1;
 			try {
 				temp1 = MediaStore.Images.Media.getBitmap(getContentResolver(), exercise.getAnimation().get(i));
@@ -126,15 +160,12 @@ public class DisplayExerciseActivity extends Activity implements OnClickListener
 				img.setBackgroundDrawable(drw);
 				anima.addFrame(drw, exercise.getFrameTime(i)*1000);
 			} catch (FileNotFoundException e) {
-				
 				e.printStackTrace();
 			} catch (IOException e) {
 				
 				e.printStackTrace();
 			}
-					
 		}
-		
 		img.setBackgroundDrawable(still);
 	}
 	
@@ -150,14 +181,6 @@ public class DisplayExerciseActivity extends Activity implements OnClickListener
 				++reference;
 				exercise = temp.get(reference);
 				loadExercise();
-				
-		
-			}
-			else
-			{
-				
-				
-				
 			}
 		}
 		if( view.getId() == back.getId() )
@@ -167,17 +190,19 @@ public class DisplayExerciseActivity extends Activity implements OnClickListener
 				--reference;
 				exercise = temp.get(reference);
 				loadExercise();
-				if( reference == temp.size()-1)
-				{
-					
-					
-				}
+				
+			}
+		}
+		if(view.getId() == add.getId())
+		{
+			if( selected.contains(exercise))
+			{
+				Toast.makeText(this, "Exercise already selected", Toast.LENGTH_SHORT).show();
 			}
 			else
 			{
-				
-				
-				
+				selected.add(exercise);
+				Toast.makeText(this, "Exercise added", Toast.LENGTH_SHORT).show();
 			}
 		}
 		

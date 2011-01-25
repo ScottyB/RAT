@@ -121,6 +121,42 @@ public class SessionActivity extends Activity implements OnTouchListener, OnClic
 		mImage.setOnTouchListener(this);
 	     
 		bttn.setOnClickListener(this);
+		
+		// Draw points if any
+		Bundle bun = new Bundle();
+		bun = getIntent().getExtras();
+		if( bun != null )
+		{
+			loadPoints();
+			ArrayList<String> points = new ArrayList<String>();
+			points = bun.getStringArrayList("points");
+			for( String s: points)
+			{
+				for ( BodyPoint bo: mPoints)
+				{
+					if( s.equals(bo.getName()))
+					{
+						mMarkers.add(new Point(bo.x+75,bo.y));
+						ImageView img = new ImageView(this);
+						img.setBackgroundResource(R.drawable.circle);
+						LayoutParams Params = new LayoutParams(MarginLayoutParams.WRAP_CONTENT,MarginLayoutParams.WRAP_CONTENT);
+						Params.setMargins(bo.x+75, bo.y, 0, 0);
+						mLayout.addView(img, Params);
+						mLastPoint = new Point(bo.x+75,bo.y );
+						
+					}
+				}
+			}
+		}
+		
+	}
+	
+	@Override
+	public void onStart()
+	{
+		super.onStart();
+		
+		
 	}
 	
 	@Override

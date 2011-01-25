@@ -19,12 +19,14 @@
 		android:id="@+id/phone"  
     	android:layout_width="fill_parent" 
     	android:layout_height="wrap_content"
+    	android:inputType="phone"
     	android:hint="Phone" 
     />
      <AutoCompleteTextView
 		android:id="@+id/email"  
     	android:layout_width="fill_parent" 
     	android:layout_height="wrap_content"
+    	android:inputType="textEmailAddress"
     	android:hint="Email" 
     />
 	<Button

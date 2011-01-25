@@ -1,0 +1,20 @@
+<object-stream>
+<animal id="1234">
+	<numberOfLegs>2</numberOfLegs>
+	<name>Bear</name>
+	<canFly>false</canFly>
+	<onFarm>false</onFarm>
+	<types>
+	<type>1</type>
+	<type>3</type>
+	<type>4</type>
+	<type>5</type>
+	</types>
+</animal>
+<animal id="5678">
+	<numberOfLegs>4</numberOfLegs>
+	<name>Cow</name>
+	<canFly>false</canFly>
+	<onFarm>true</onFarm>
+</animal>
+</object-stream>

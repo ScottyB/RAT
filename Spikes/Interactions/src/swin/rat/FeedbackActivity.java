@@ -31,10 +31,24 @@ public class FeedbackActivity extends Activity
 		Utils.receiveClosingBroadcast(this);
 		Button bttn = (Button) findViewById(R.id.newBttn);
 		
+		Bundle incoming = new Bundle();
+		incoming = getIntent().getExtras();
+		String numb = incoming.getString("number");
 		
+		// 10 as date format is dd-Jan-yy,
+		String noDate = numb.substring(10);
+		if( noDate.contains("Exercises"))
+			noDate = noDate.replace("Exercises", "");
+		if( noDate.contains("Exercise"))
+			noDate = noDate.replace("Exercise", "");
+		noDate = noDate.replace("0", "");
+		noDate = noDate.trim();
+		
+		int number = Integer.parseInt(noDate);
+		Log.i("tag", noDate);
 		
 		TextView txt = (TextView) findViewById(R.id.title);
-		txt.setText(getIntent().getExtras().getString("name"));
+		txt.setText(getIntent().getExtras().getString("number"));
 		
 		
 		
@@ -45,13 +59,17 @@ public class FeedbackActivity extends Activity
 			public void onClick(View arg0) 
 			{
 				Intent myIntent1 = new Intent(FeedbackActivity.this, SelectionActivity.class);
+				
+				AcessObject temp = ((AcessObject)getApplicationContext());
+				
 				Bundle b = new Bundle();
-				ArrayList<String> temp = new ArrayList<String>();
-				temp.add("Ankle");
-				temp.add("Neck");
-				b.putStringArrayList("bodyPoints", temp);
 				b.putBoolean("state", SelectionActivity.STATE_SELECTION);
-				myIntent1.putExtras(b);
+				ArrayList<String> body = new ArrayList<String>();
+				body.add("Upper Leg");
+				body.add("Stomach");
+				b.putStringArrayList("bodyPoints",body);
+				myIntent1.putExtras(b);			
+				
 				startActivity(myIntent1);
 				
 			}
@@ -60,13 +78,12 @@ public class FeedbackActivity extends Activity
 		
 		ListView list = (ListView) findViewById(R.id.list);
 		ArrayList<String> values = new ArrayList<String>();
-		values.add("Exercise 1 details");
-		values.add("Exercise 2 details");
-		values.add("Exercise 3 details");
-		values.add("Exercise 4 details");
-		values.add("Exercise 5 details");
-		values.add("Exercise 6 details");
-		Log.i("tag","NO");
+		
+		for(int i=1; i<number+1; i++)
+		{
+			values.add("Exercise "+ i + " details");
+		}
+		
 		String [] temp = new String[values.size()];
 		list.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,values.toArray(temp)));
 		list.setOnItemClickListener(new OnItemClickListener()
@@ -75,14 +92,11 @@ public class FeedbackActivity extends Activity
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) 
 			{
-				Intent myIntent = new Intent(FeedbackActivity.this, SelectionActivity.class);
-				Bundle b = new Bundle();
-				ArrayList<String> temp = new ArrayList<String>();
-				temp.add("one");
-				b.putBoolean("state", SelectionActivity.STATE_DISPLAY);
-				b.putStringArrayList("activities", temp);
-				myIntent.putExtras(b);
-				startActivity(myIntent); 
+				Intent myIntent1 = new Intent(FeedbackActivity.this, DisplayExerciseActivity.class);
+				
+				AcessObject temp = ((AcessObject)getApplicationContext());
+				temp.setExercise(temp.getExercises().get(1));
+				startActivity(myIntent1);
 				
 			}
 			

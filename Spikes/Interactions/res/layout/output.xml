@@ -5,15 +5,28 @@
     android:layout_height="fill_parent"
     >
    <TextView  
-   android:layout_below="@id/layout"
+   	android:layout_below="@id/layout"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
-    android:text="Output"
+    android:text="Selected Exercises"
     android:id="@+id/view"
     android:textSize="20sp"
     />
+   <GridView
+   	android:layout_below="@id/view"
+  	android:layout_width="fill_parent"
+  	android:layout_height="fill_parent"
+  	android:id="@+id/grid"
+  	android:columnWidth="90dp"
+ 	 android:numColumns="auto_fit"
+ 	 android:verticalSpacing="5dp"
+ 	 android:horizontalSpacing="5dp"
+  	 android:stretchMode="columnWidth"
+  	 android:gravity="center"
+  >
    
-    
+</GridView>
+   
     <EditText
     	android:layout_width="fill_parent"
     	android:id="@+id/txt"
@@ -22,15 +35,10 @@
     	android:hint="Notes"
     	android:layout_weight="1"
     	android:gravity="top"
-    	android:minLines="5"
+    	android:minLines="10"
+    	android:maxLines="10"
     	/>
-    	 <ListView
-    	android:id="@+id/list"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:layout_below="@id/view"
-    	android:layout_above="@id/txt"
-    	/>
+    	
     <Button
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"

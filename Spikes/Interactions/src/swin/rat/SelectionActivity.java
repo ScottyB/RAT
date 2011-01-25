@@ -111,7 +111,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		processBundle();
 		
 		Log.i("tag", "Bundle Passes");
-		loadExercises();
+		fExercises = ((AcessObject)getApplicationContext()).getExercises();
 		sortExercises();
 		galleryExercise.setAdapter(exerciseAdap);
 		galleryExercise.setOnItemClickListener(this);
@@ -125,26 +125,34 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 	{
 		super.onResume();
 		AcessObject temp = ((AcessObject)getApplicationContext());
-		if( temp.getToAdd() )
+		ArrayList<Exercise> selected = new ArrayList<Exercise>();
+		selected = temp.getSelectedExercises();
+		if(selected != null)
 		{
-			if( selectedExercises.contains(temp.getExercise()))
+			for(Exercise e: selected)
 			{
-				Toast.makeText(this, "This activity has been assigned already", Toast.LENGTH_SHORT).show();
-				temp.setToAdd(false);
-			}
-			else
-			{
-				selectedExercises.add(temp.getExercise());
-				temp.setExercise(null);
-				temp.setToAdd(false);
-				gallerySelection.setAdapter(selectAdap);
+				if(selectedExercises.contains(e))
+				{
+					// If already in selected dont change
+					temp.setExercise(null);
+				}
+				else
+				{
+					selectedExercises.add(e);
+					temp.setExercise(null);
+					gallerySelection.setAdapter(selectAdap);
+				}
 			}
 		}
 	}
 	
+	
+	
+	
+	
 	private void processBundle()
 	{
-		Log.w("tag", "nope");
+		
 		Bundle bu = getIntent().getExtras();
 		
 		if( bu.getBoolean("state") == SelectionActivity.STATE_SELECTION)
@@ -212,10 +220,6 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		return true;
 	}
 	
-	private void loadBodyPoints()
-	{
-		
-	}
 	
 	
 	@Override
@@ -382,11 +386,11 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 			else
 			{
 				Intent myIntent = new Intent(SelectionActivity.this, OutputActivity.class);
-				Bundle b = new Bundle();
+				
 				
 				//b.putIntegerArrayList("activities", exercises);
+				((AcessObject)getApplicationContext()).setSelectedExercises(selectedExercises);
 				
-				myIntent.putExtras(b);
 				startActivity(myIntent);
 			}	
 		}
@@ -394,32 +398,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		
 	}
 	
-	private void loadExercises()
-	{
-		SAXParserFactory saxf = SAXParserFactory.newInstance();
-		try {
-			SAXParser saxp = saxf.newSAXParser();
-			XMLReader xmlr = saxp.getXMLReader();
-			ExerciseHandler handler = new ExerciseHandler();
-			xmlr.setContentHandler(handler);
-			InputStream in = this.getResources().openRawResource(R.raw.exercises);
-			InputSource inputsource = new InputSource(in);
-			xmlr.parse(inputsource);
-			fExercises = (ArrayList<Exercise>)handler.getExercises();
-			
-		} catch (ParserConfigurationException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+	
 
 	private void sortExercises()
 	{
@@ -448,6 +427,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 			
 			Intent ent = new Intent( SelectionActivity.this, DisplayExerciseActivity.class);
 			Bundle b = new Bundle();
+			temp.setSelectedExercises(selectedExercises);
 			b.putInt("ref", position);
 			ent.putExtras(b);
 			

@@ -32,28 +32,30 @@ public final class R {
     }
     public static final class id {
         public static final int add=0x7f080004;
-        public static final int auto=0x7f080013;
-        public static final int back=0x7f080006;
+        public static final int auto=0x7f080015;
+        public static final int back=0x7f080007;
         public static final int data=0x7f080003;
         public static final int des=0x7f080001;
-        public static final int description=0x7f080014;
-        public static final int email=0x7f08000a;
-        public static final int exercise=0x7f080015;
-        public static final int existingBttn=0x7f080010;
-        public static final int image=0x7f08000e;
+        public static final int description=0x7f080016;
+        public static final int email=0x7f08000b;
+        public static final int exercise=0x7f080017;
+        public static final int existingBttn=0x7f080011;
+        public static final int grid=0x7f080013;
+        public static final int image=0x7f08000f;
         public static final int img=0x7f080002;
-        public static final int layout=0x7f08000c;
-        public static final int list=0x7f080008;
+        public static final int layout=0x7f08000d;
+        public static final int list=0x7f080009;
         public static final int name=0x7f080000;
-        public static final int newBttn=0x7f080009;
-        public static final int next=0x7f080005;
-        public static final int phone=0x7f08000b;
-        public static final int selection=0x7f080016;
-        public static final int tempp=0x7f08000d;
-        public static final int text=0x7f08000f;
-        public static final int title=0x7f080007;
-        public static final int txt=0x7f080012;
-        public static final int view=0x7f080011;
+        public static final int newBttn=0x7f08000a;
+        public static final int next=0x7f080006;
+        public static final int phone=0x7f08000c;
+        public static final int review=0x7f080005;
+        public static final int selection=0x7f080018;
+        public static final int tempp=0x7f08000e;
+        public static final int text=0x7f080010;
+        public static final int title=0x7f080008;
+        public static final int txt=0x7f080014;
+        public static final int view=0x7f080012;
     }
     public static final class layout {
         public static final int autocomplete_list_item=0x7f030000;

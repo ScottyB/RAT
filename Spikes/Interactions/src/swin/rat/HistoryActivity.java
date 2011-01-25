@@ -25,6 +25,7 @@ public class HistoryActivity extends Activity implements OnClickListener, OnItem
 	static final private String NAME = "people";	// Name of list
 	private ListView mList;
 	
+	private TextView lName;
 	private ArrayList<HashMap<String,String>> mHeader;
 	private ArrayList<ArrayList<HashMap<String,Object>>> mChild;
 	
@@ -39,7 +40,7 @@ public class HistoryActivity extends Activity implements OnClickListener, OnItem
 		
 		Button lNew = (Button) findViewById(R.id.newBttn);
 		
-		TextView lName = (TextView) findViewById(R.id.name);
+		lName = (TextView) findViewById(R.id.name);
 		String name = this.getIntent().getExtras().getString("name");
 		lName.setText(name);
 		lNew.setOnClickListener(this);
@@ -52,43 +53,13 @@ public class HistoryActivity extends Activity implements OnClickListener, OnItem
 		 mList.setOnItemClickListener( this );
 		
 		
-		populateHeaders();
-		populateNotes();
 		
 		
-		String [] temp ={"16-Aug-34, 1 Exercise","21-Aug-34, 4 Exercises", "3-Sep-34, 3 Exercises",
+		String [] temp ={"16-Aug-34, 1 Exercise","21-Aug-34, 4 Exercises", "03-Sep-34, 3 Exercises",
 				"01-Jan-99, 1 Exercise","03-Feb-99, 4 Exercises", "09-Mar-99, 5 Exercises"};
 		
 		mList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, temp));
-//		final LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//		mList.setAdapter( new SimpleExpandableListAdapter(
-//	            this,
-//	            mHeader,
-//	            android.R.layout.simple_expandable_list_item_1,
-//	            new String[] { NAME },            // the name of the field data
-//	            new int[] { android.R.id.text1 }, // the text field to populate with the field data
-//	            mChild,
-//	            0,
-//	            null,
-//	            new int[] {}
-//	        	) {
-//	            @Override
-//	            public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) 
-//	            {
-//                	final View v = super.getChildView(groupPosition, childPosition, isLastChild, convertView, parent);
-//                	String text = (String) ((Map<String,Object>)getChild(groupPosition, childPosition)).get(NAME);
-//                	((TextView)v).setText(text);
-//                	return v;
-//	           }
-//
-//	            @Override
-//	            public View newChildView(boolean isLastChild, ViewGroup parent) 
-//	            {
-//	            	
-//	            	return layoutInflater.inflate(android.R.layout.simple_expandable_list_item_1, null, false);
-//	            }
-//	        }
-//	    );
+//		
 	}
 
 	
@@ -113,7 +84,7 @@ public class HistoryActivity extends Activity implements OnClickListener, OnItem
 					temp.add("one");
 					ArrayList<String> temp2 = new ArrayList<String>();
 					temp2.add("Ankle");
-					temp2.add("Neck");
+					temp2.add("Upper Leg");
 					b.putBoolean("gallery", true);
 					b.putStringArrayList("bodyPoints", temp2);
 					b.putBoolean("state", SelectionActivity.STATE_SELECTION);
@@ -128,8 +99,14 @@ public class HistoryActivity extends Activity implements OnClickListener, OnItem
 				@Override
 				 public void onClick(DialogInterface dialog, int id) 
 		         {
-					Intent myIntent = new Intent();
-					myIntent.setClassName("swin.rat", "swin.rat.SessionActivity");
+					Intent myIntent = new Intent(HistoryActivity.this, SessionActivity.class);
+					Bundle b = new Bundle();
+					ArrayList<String> temp = new ArrayList<String>();
+					temp.add("Upper Arm");
+					temp.add("Upper Leg");
+					temp.add("Stomach");
+					b.putStringArrayList("points", temp);
+					myIntent.putExtras(b);
 					startActivity(myIntent);   		  
 		        	  
 			    }
@@ -161,67 +138,15 @@ public class HistoryActivity extends Activity implements OnClickListener, OnItem
 		return true;
     }
 	
-	private void populateHeaders()
-	{
-		HashMap<String,String> meeting1 = new HashMap<String,String>();
-		meeting1.put(NAME, "14-Aug-34, 3 Exercises");
-		
-		HashMap<String,String> meeting2 = new HashMap<String,String>();
-		meeting2.put(NAME, "16-Aug-34, 1 Exercise");
-		
-		HashMap<String,String> meeting3 = new HashMap<String,String>();
-		meeting3.put(NAME, "21-Aug-34, 4 Exercises");
-		
-		HashMap<String,String> meeting4 = new HashMap<String,String>();
-		meeting4.put(NAME, "3-Sep-34, 3 Exercises");
-		
-		
-		
-		mHeader.add(meeting1);
-		mHeader.add(meeting2);
-		mHeader.add(meeting3);
-		mHeader.add(meeting4);
 	
-	}
 	
-	private void populateNotes()
-	{
-		ArrayList<HashMap<String, Object>> group1data = new ArrayList<HashMap<String, Object>>();
-		HashMap<String, Object> map = new HashMap<String,Object>();
-		map.put(NAME, "Very sore after leg raises");
-		group1data.add(map);
-		
-		ArrayList<HashMap<String, Object>> group2data = new ArrayList<HashMap<String, Object>>();
-		HashMap<String, Object> map2 = new HashMap<String,Object>();
-		map2.put(NAME, "Has made great improvement");
-		group2data.add(map2);
-		
-		ArrayList<HashMap<String, Object>> group3data = new ArrayList<HashMap<String, Object>>();
-		HashMap<String, Object> map3 = new HashMap<String,Object>();
-		map3.put(NAME, "");
-		group3data.add(map3);
-		
-		ArrayList<HashMap<String, Object>> group4data = new ArrayList<HashMap<String, Object>>();
-		HashMap<String, Object> map4 = new HashMap<String,Object>();
-		map4.put(NAME, "Will try knee exercises to fix hips. If that doesn't work might have to amputate at the neck.");
-		group4data.add(map4);
-		
-		
-		mChild.add(group1data);
-		mChild.add(group2data);
-		mChild.add(group3data);
-		mChild.add(group4data);
-		
-	   
-	    
-	    
-	}
+	
 	
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View v,	int position, long arg3) 
+	public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) 
 	{
 		Bundle b = new Bundle();
-		b.putString("name", ((TextView)v).getText().toString());
+		b.putString("number", ((TextView)v).getText().toString());
 		
 		Intent myIntent = new Intent(HistoryActivity.this, FeedbackActivity.class);
 		myIntent.putExtras(b);
