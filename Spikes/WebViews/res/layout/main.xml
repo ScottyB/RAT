@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="Welecome to the World Wide Web"
+    android:textSize="20sp"
+    />
+<WebView
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_weight="1"
+	android:id="@+id/web"
+	android:layout_margin="3dip"
+	/>
+<ToggleButton
+	android:textOn="From Site"
+	android:textOff="From Data"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:id="@+id/but"
+	/>
+</LinearLayout>
+

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+   <TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="Feedback"
+    android:textSize="30sp"
+    android:id="@+id/title"
+    />
+	<ListView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/list"
+		android:layout_weight="1"
+		/>    
+	<TableLayout
+		android:layout_margin="20dip"
+		android:stretchColumns="2"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		>
+		<TableRow>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="20sp"
+				android:text="Difficulty"
+				/>
+			<TextView
+				android:layout_marginLeft="50dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="20sp"
+				android:text="6"
+				/>
+		</TableRow>
+		<TableRow>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="20sp"
+				android:text="Repetitions"
+				/>
+			<TextView
+				android:layout_marginLeft="50dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="20sp"
+				android:text="35"
+				/>
+		</TableRow>
+		<TableRow>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="20sp"
+				android:text="Days skipped"
+				/>
+			<TextView
+				android:layout_marginLeft="50dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="20sp"
+				android:text="2"
+				/>
+		</TableRow>
+		
+		</TableLayout>
+		
+		
+	<Button
+	style="@style/button"
+	android:text="Assign new exercises"
+	android:id="@+id/newBttn"
+	/>
+	
+</LinearLayout>

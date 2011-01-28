@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:layout_height="fill_parent"
+    >
+    <TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="Welcome R.A.T Patient"
+    android:gravity="center"
+    android:textSize="50sp"
+    android:layout_alignParentTop="true"
+    />
+    <Button
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:text="Activity List"
+	style="@style/button"	
+	android:id="@+id/list"
+	android:layout_margin="10dip"
+	/>
+	<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="Next Appointment: 20/02/2099"
+    android:textSize="20sp"
+    android:layout_margin="10dip"
+    />
+    <TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="Number of Activities: 5"
+    android:textSize="20sp"
+    android:layout_margin="10dip"
+    />
+     <Button
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:text="Export Feedback"
+	style="@style/button"	
+	android:layout_margin="10dip"
+	/>
+    <TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="Notes: "
+    android:textSize="20sp"
+    android:layout_margin="10dip"
+    />
+    <TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="Do not eat before or after exercise."
+    android:textSize="20sp"
+    android:layout_margin="10dip"
+    />
+	
+   
+	
+</LinearLayout>

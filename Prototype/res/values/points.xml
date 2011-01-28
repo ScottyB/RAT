@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<integer-array name="x">
+		<item>100</item>
+		<item>147</item>
+	</integer-array>
+	<integer-array name="y">
+		<item>554</item>
+		<item>80</item>
+	</integer-array>	
+</resources>

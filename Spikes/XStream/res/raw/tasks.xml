@@ -1,0 +1,27 @@
+<object-stream>
+<task>
+	<shortName>Act. Flex.</shortName>
+	<longName>Active Flexion</longName>
+	<bodyZones>
+	<bodyZone>Upper Leg</bodyZone>	
+	</bodyZones>
+	<icon>android.resource://swin.rat/raw/activeflexion_ic</icon>
+	<primaryImage>android.resource://swin.rat/raw/activeflexion_p</primaryImage>
+	<frames>
+	<frame>android.resource://swin.rat/raw/activeflexion_an_4</frame>
+	<frame>android.resource://swin.rat/raw/activeflexion_an_3</frame>
+	<frame>android.resource://swin.rat/raw/activeflexion_an_2</frame>
+	<frame>android.resource://swin.rat/raw/activeflexion_an_1</frame>
+	</frames>
+	<frameTimes>
+	<frameTime>3000</frameTime>
+	<frameTime>3000</frameTime>
+	<frameTime>3000</frameTime>
+	<frameTime>3000</frameTime>
+	</frameTimes>
+	<videoStream>http://www2.warwick.ac.uk/fac/med/research/csri/orthopaedics/patientinfo/physio/stagei/actflexion</videoStream>
+	<text>Bend your operated leg as far as is comfortable up onto your chest.</text>
+	<repetition>0</repetition>
+	<holdTime>0.0</holdTime>
+</task>
+</object-stream>

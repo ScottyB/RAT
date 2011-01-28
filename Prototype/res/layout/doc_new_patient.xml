@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
+   	<TextView  
+    	android:layout_width="fill_parent" 
+    	android:layout_height="wrap_content" 
+    	android:text="New Patient"
+    	/>
+    <swin.rat.util.FormEditText
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:singleLine="true"
+    	android:id="@+id/name"
+    	android:hint="Name"
+    	/>
+    <RadioGroup
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+       	android:orientation="horizontal"
+    	>
+    	<RadioButton android:text="Male"  	/>
+    	<RadioButton android:text="Female" 	/>
+    </RadioGroup>
+    <swin.rat.util.FormEditText
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:singleLine="true"
+    	android:id="@+id/phone"
+    	android:hint="Phone"
+    	android:inputType="phone"
+    	/>
+    <swin.rat.util.FormEditText
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:singleLine="true"
+    	android:id="@+id/email"
+    	android:hint="Email Address"
+    	android:inputType="textEmailAddress"
+    	/>
+	<Button
+		style="@style/button"
+		android:text="Start Diagnostics"
+		android:id="@+id/newBttn"
+		/>
+</LinearLayout>

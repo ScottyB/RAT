@@ -69,7 +69,7 @@ public class SessionActivity extends Activity implements OnTouchListener, OnClic
 		Utils.receiveClosingBroadcast(this);
 		
 		
-		Bitmap temp = BitmapFactory.decodeResource(getResources(),R.drawable.muscles);
+		Bitmap temp = BitmapFactory.decodeResource(getResources(),R.drawable.human);
 		BitmapDrawable bit = new BitmapDrawable(temp);
         Matrix matrix = new Matrix();
         // resize the bit map

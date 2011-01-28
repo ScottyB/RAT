@@ -1,0 +1,128 @@
+<object-stream>
+<task>
+	<shortName>Act. Flex.</shortName>
+	<longName>Active Flexion</longName>
+	<bodyZones>
+		<bodyZone>Upper Leg</bodyZone>	
+	</bodyZones>
+	<icon>android.resource://swin.rat.ui.doctor/raw/activeflexion_ic</icon>
+	<primaryImage>android.resource://swin.rat.ui.doctor/raw/activeflexion_p</primaryImage>
+	<frames>
+		<frame>android.resource://swin.rat.ui.doctor/raw/activeflexion_an_4</frame>
+		<frame>android.resource://swin.rat.ui.doctor/raw/activeflexion_an_3</frame>
+		<frame>android.resource://swin.rat.ui.doctor/raw/activeflexion_an_2</frame>
+		<frame>android.resource://swin.rat.ui.doctor/raw/activeflexion_an_1</frame>
+	</frames>
+	<frameTimes>
+		<frameTime>3000</frameTime>
+		<frameTime>3000</frameTime>
+		<frameTime>3000</frameTime>
+		<frameTime>3000</frameTime>
+	</frameTimes>
+	<videoStream>http://www2.warwick.ac.uk/fac/med/research/csri/orthopaedics/patientinfo/physio/stagei/actflexion</videoStream>
+	<text>Bend your operated leg as far as is comfortable up onto your chest.</text>
+	<repetition>0</repetition>
+	<holdTime>0</holdTime>
+</task>
+<task> 
+	<shortName>Trans. Abs. 1</shortName>
+	<longName>Transversus Abdominus Stage 1</longName>
+	<bodyZones>
+		<bodyZone>Stomach</bodyZone>
+	</bodyZones>
+	<icon>android.resource://swin.rat.ui.doctor/raw/tabs1_ic</icon>
+	<primaryImage>android.resource://swin.rat.ui.doctor/raw/tabs1_p</primaryImage>
+	<frames>
+		<frame>android.resource://swin.rat.ui.doctor/raw/tabs1_an_7</frame>
+		<frame>android.resource://swin.rat.ui.doctor/raw/tabs1_an_6</frame>
+		<frame>android.resource://swin.rat.ui.doctor/raw/tabs1_an_5</frame>
+		<frame>android.resource://swin.rat.ui.doctor/raw/tabs1_an_4</frame>
+		<frame>android.resource://swin.rat.ui.doctor/raw/tabs1_an_3</frame>
+		<frame>android.resource://swin.rat.ui.doctor/raw/tabs1_an_2</frame>
+		<frame>android.resource://swin.rat.ui.doctor/raw/tabs1_an_1</frame>
+	</frames>
+	<frameTimes>
+		<frameTime>2000</frameTime>
+		<frameTime>200</frameTime>
+		<frameTime>200</frameTime>
+		<frameTime>200</frameTime>
+		<frameTime>200</frameTime>
+		<frameTime>1000</frameTime>
+		<frameTime>1000</frameTime>
+	</frameTimes>
+	<videoStream>http://www2.warwick.ac.uk/fac/med/research/csri/orthopaedics/patientinfo/physio/stagei/transabstage1</videoStream>
+	<text>Lie flat on your back with both knees bent and both feet flat on the ground. Place a small rolled up towel in the small of your back. Tighten your stomach muscles.</text>
+	<repetition>10</repetition>
+	<holdTime>10</holdTime>
+</task>
+<task>
+		<shortName>Act. Int. Rot</shortName>
+		<longName>Active Internal Rotation</longName>
+		<bodyZones>
+			<bodyZone>Upper Leg</bodyZone>
+			<bodyZone>Ankle</bodyZone>
+		</bodyZones>
+		<icon>android.resource://swin.rat.ui.doctor/raw/actintrot_ic</icon>
+		<primaryImage>android.resource://swin.rat.ui.doctor/raw/actintrot_p</primaryImage>
+		<frames>
+			<frame>android.resource://swin.rat.ui.doctor/raw/actintrot_an_1</frame>
+			<frame>android.resource://swin.rat.ui.doctor/raw/actintrot_an_2</frame>
+		</frames>
+		<frameTimes>
+			<frameTime>1000</frameTime>
+			<frameTime>1000</frameTime>
+		</frameTimes>
+		<videoStream>http://www2.warwick.ac.uk/fac/med/research/csri/orthopaedics/patientinfo/physio/stagei/actintrotation</videoStream>
+			<text>Lie flat on your back with your legs straight. Turn the foot of your operated leg inwards so that your toes point at your other foot.</text>
+			<freq>2</freq>
+			<repetition>20</repetition>
+			<holdTime>5</holdTime>
+</task>
+<task>
+		<shortName>Ly. Abd.</shortName>
+		<longName>Side Lying Abduction</longName>
+		<bodyZones>
+			<bodyZone>Upper Leg</bodyZone>
+			<bodyZone>Stomach</bodyZone>
+		</bodyZones>		
+		<icon>android.resource://swin.rat.ui.doctor/raw/sla_ic</icon>
+		<primaryImage>android.resource://swin.rat.ui.doctor/raw/sla_p</primaryImage>
+		<frames>
+			<frame>android.resource://swin.rat.ui.doctor/raw/sla_an_1</frame>
+			<frame>android.resource://swin.rat.ui.doctor/raw/sla_an_2</frame>
+		</frames>
+		<frameTimes>
+			<frameTime>1000</frameTime>
+			<frameTime>1000</frameTime>
+		</frameTimes>
+		<videoStream>http://www2.warwick.ac.uk/fac/med/research/csri/orthopaedics/patientinfo/physio/stagei/sidelyingabduction</videoStream>
+		<text>Lie on your non-operated side with your legs in line with your shoulders and hips. Raise your operated leg up as far as is comfortable.</text>
+		<freq>2</freq>
+		<repetition>20</repetition>
+		<holdTime>5</holdTime>
+</task>
+<task>
+		<shortName>Sup. Per.</shortName>
+		<longName>Super Person</longName>
+		<bodyZones>
+			<bodyZone>Upper Leg</bodyZone>
+			<bodyZone>Upper Arm</bodyZone>
+			<bodyZone>Stomach</bodyZone>
+		</bodyZones>
+		<icon>android.resource://swin.rat.ui.doctor/raw/superperson_ic</icon>
+		<primaryImage>android.resource://swin.rat.ui.doctor/raw/superperson_p</primaryImage>
+		<frames>
+			<frame>android.resource://swin.rat.ui.doctor/raw/superperson_an_1</frame>
+			<frame>android.resource://swin.rat.ui.doctor/raw/superperson_an_2</frame>
+		</frames>
+		<frameTimes>
+			<frameTime>1000</frameTime>
+			<frameTime>1000</frameTime>
+		</frameTimes>
+		<videoStream>http://www2.warwick.ac.uk/fac/med/research/csri/orthopaedics/patientinfo/physio/stageii/superperson</videoStream>
+		<text>Kneel on all-fours with your hands and knees a shoulder-with apart. Keeping your spine straight, raise your right arm in front of you and your left leg behind you at the same time.
+Try to form a straight line from your fingertips to your toes. Repeat with your left arm and right leg.</text>
+		<freq>2</freq>
+		<repetition>5</repetition>
+</task>
+</object-stream>

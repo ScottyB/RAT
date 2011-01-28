@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="swin.rat.ui.doctor"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <application android:icon="@drawable/icon"  android:name="swin.rat.ui.RatApplication" android:label="@string/app_name">
+        <activity android:name=".DoctorHomeActivity" android:screenOrientation="portrait"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+		<activity android:name=".NewPatientActivity" android:screenOrientation="portrait"
+                  android:label="@string/app_name">
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".BodyPointsActivity"
+                  android:label="@string/app_name"
+                  android:screenOrientation="portrait"
+                  >
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SearchPatientActivity" android:screenOrientation="portrait"
+                  android:label="@string/app_name">
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SelectionActivity" android:screenOrientation="landscape"
+                  android:label="@string/app_name">
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+         <activity android:name=".DisplayTaskActivity" android:screenOrientation="landscape"
+                  android:label="@string/app_name">
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ReviewTasksActivity" 
+                  android:label="@string/app_name">
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ConsultationHistoryActivity" android:screenOrientation="portrait"
+                  android:label="@string/app_name">
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ConsultationFeedbackActivity" android:screenOrientation="portrait"
+                  android:label="@string/app_name">
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name="swin.rat.ui.patient.PatientHomeActivity" android:screenOrientation="portrait"
+                  android:label="@string/app_name">
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name="swin.rat.ui.patient.TaskListActivity" android:screenOrientation="portrait"
+                  android:label="@string/app_name">
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name="swin.rat.ui.patient.DisplayTaskActivity" android:screenOrientation="landscape"
+                  android:label="@string/app_name">
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+         <activity android:name="swin.rat.ui.patient.FeedbackActivity" android:screenOrientation="portrait"
+                  android:label="@string/app_name">
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+    </application>
+
+
+<supports-screens android:anyDensity="true" android:largeScreens="true"></supports-screens>
+</manifest> 

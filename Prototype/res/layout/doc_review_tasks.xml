@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+   <TextView  
+   	android:layout_below="@id/layout"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="Selected Exercises"
+    android:id="@+id/view"
+    android:textSize="20sp"
+    />
+   <GridView
+   	android:layout_below="@id/view"
+  	android:layout_width="fill_parent"
+  	android:layout_height="fill_parent"
+  	android:id="@+id/grid"
+  	android:columnWidth="90dp"
+ 	 android:numColumns="auto_fit"
+ 	 android:verticalSpacing="5dp"
+ 	 android:horizontalSpacing="5dp"
+  	 android:stretchMode="columnWidth"
+  	 android:gravity="center"
+  >
+   
+</GridView>
+   
+    <EditText
+    	android:layout_width="fill_parent"
+    	android:id="@+id/txt"
+    	android:layout_height="wrap_content"
+    	android:layout_above="@id/newBttn" 
+    	android:hint="Notes"
+    	android:layout_weight="1"
+    	android:gravity="top"
+    	android:minLines="10"
+    	android:maxLines="10"
+    	/>
+    	
+    <Button
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:text="Send Activities"
+	android:id="@+id/newBttn"
+	android:layout_alignParentBottom="true"
+	/>
+</RelativeLayout>

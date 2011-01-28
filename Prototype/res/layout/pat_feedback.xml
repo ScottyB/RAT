@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
+   	<TextView  
+    	android:layout_width="fill_parent" 
+    	android:layout_height="wrap_content" 
+    	android:textSize="20sp"
+    	android:id="@+id/txt"
+    	android:text="Feedback"
+    	/>
+    <swin.rat.util.FormEditText
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:singleLine="true"
+    	android:id="@+id/reps"
+    	android:hint="Repetitions"
+    	android:inputType="number"
+    	/>
+     <swin.rat.util.FormEditText
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:singleLine="true"
+    	android:id="@+id/name"
+    	android:hint="Frequency"
+    	android:inputType="number"
+    	/>
+    <Spinner 
+        android:id="@+id/spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/days"
+       	android:prompt="@string/day"/>
+    <RadioGroup
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+       	android:orientation="horizontal"
+    	>
+    	<RadioButton android:text="Fun"  	/>
+    	<RadioButton android:text="Not Fun" 	/>
+    </RadioGroup>
+    <swin.rat.util.FormEditText
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:singleLine="true"
+    	android:id="@+id/email"
+    	android:inputType="time"
+    	android:hint="Time of Day"
+    	/>
+	<Button
+		style="@style/button"
+		android:text="Save and Finish!"
+		android:id="@+id/newBttn"
+		/>
+</LinearLayout>

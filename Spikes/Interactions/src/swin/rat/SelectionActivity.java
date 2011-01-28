@@ -1,17 +1,7 @@
 package swin.rat;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,7 +9,6 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -110,7 +99,6 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 			
 		processBundle();
 		
-		Log.i("tag", "Bundle Passes");
 		fExercises = ((AcessObject)getApplicationContext()).getExercises();
 		sortExercises();
 		galleryExercise.setAdapter(exerciseAdap);
@@ -159,7 +147,6 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		{
 			
 			bodyParts = bu.getStringArrayList("bodyPoints");
-			Log.w("tag", "nope1");
 			if(bu.containsKey("selection"))
 			{
 				if(bu.getBoolean("selection"))
