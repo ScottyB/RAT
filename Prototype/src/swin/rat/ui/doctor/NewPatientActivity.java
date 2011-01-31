@@ -22,6 +22,7 @@ public class NewPatientActivity extends Activity implements OnClickListener
 	private Pattern pattern;
 	private Matcher matcher;
 	private static final String EMAIL_PATTERN ="^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	private RatApplication global;
 	
 	@Override
 	public void onCreate( Bundle b)
@@ -30,7 +31,7 @@ public class NewPatientActivity extends Activity implements OnClickListener
 		setContentView(R.layout.doc_new_patient);
 		
 		Utils.receiveClosingBroadcast(this);
-		
+		global = (RatApplication)getApplicationContext();
 		Button bttn = (Button) findViewById(R.id.newBttn);
 		mName = (FormEditText) findViewById(R.id.name);
 		mEmail = (FormEditText) findViewById(R.id.email);
@@ -52,7 +53,7 @@ public class NewPatientActivity extends Activity implements OnClickListener
 			}
 			else
 			{
-				RatApplication global = (RatApplication)getApplicationContext();
+				
 				global.patient = new Patient(null,null, mEmail.getText().toString());
 				mEmail.setState(FormEditText.VALID);
 				Intent myIntent = new Intent();
@@ -67,7 +68,9 @@ public class NewPatientActivity extends Activity implements OnClickListener
 	{
 		if( !hasGotData() )
 		{
+			global.clearPatient();
 			Utils.returnHome(this);
+			
 		}
 		else
 		{

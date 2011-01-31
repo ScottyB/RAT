@@ -1,5 +1,9 @@
 package swin.rat.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+
 import android.graphics.Point;
 
 /**
@@ -9,23 +13,38 @@ import android.graphics.Point;
  */
 public class BodyPoint extends Point 
 {
-	private String mBodyPointName;
+	public String bodyPointName;
 	
 	public BodyPoint()
 	{
 		super();
-		mBodyPointName = "";
+		bodyPointName = "";
+	}
+	
+	/**
+	 * This method should be removed once application finished
+	 * @param aName
+	 */
+	public BodyPoint(String aName)
+	{
+		super();
+		bodyPointName = aName;
 	}
 	
 	public BodyPoint(String aBody, int x, int y)
 	{
 		super(x,y);
-		mBodyPointName = aBody;
+		bodyPointName = aBody;
 	}
 	
-	public String getName()
+	static public ArrayList<String> namesOfBodyPoints( ArrayList<BodyPoint> points)
 	{
-		return mBodyPointName;
+		ArrayList<String> temp = new ArrayList<String>(points.size());
+		for( BodyPoint p : points)
+		{
+			temp.add(p.bodyPointName);
+		}
+		return temp;
 	}
 	
 	public static double distanceFrom(int aX, int aY, Point aPoint )
@@ -42,5 +61,6 @@ public class BodyPoint extends Point
 	    long y=(long)(x*100);
 	    return (double)y/100;
 	}
-	
+
+		
 }

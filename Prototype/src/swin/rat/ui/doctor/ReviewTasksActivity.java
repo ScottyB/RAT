@@ -32,7 +32,7 @@ public class ReviewTasksActivity extends Activity implements OnClickListener
 	
 	private Context mContext;
 	private ListView mList;
-	
+	private RatApplication globals;
 	private ArrayList<Integer> images;
 	private String [] names;
 	
@@ -51,7 +51,8 @@ public class ReviewTasksActivity extends Activity implements OnClickListener
 		selected = new ArrayList<Task>();
 		bttn.setOnClickListener(this);
 		
-		selected = ((RatApplication)getApplicationContext()).selectedTasks;
+		globals = ((RatApplication)getApplicationContext());
+		selected = globals.selectedTasks;
 		
 		GridView gridview = (GridView) findViewById(R.id.grid);
         gridview.setAdapter(new ImageAdapter(this));
@@ -70,7 +71,7 @@ public class ReviewTasksActivity extends Activity implements OnClickListener
 				public void onClick(DialogInterface dialog, int which) 
 				{
 					//Utils.sendClosingBroadcast(mContext);
-					
+					globals.clearPatient();
 					Utils.returnHomeNoMessage(mContext);
 					
 					
@@ -97,6 +98,7 @@ public class ReviewTasksActivity extends Activity implements OnClickListener
 		switch(item.getItemId())
 		{
 			case HOME: 
+				globals.clearPatient();
 				Utils.returnHome(this);
 				break;
 			case DELETE:

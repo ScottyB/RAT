@@ -3,6 +3,7 @@ package swin.rat.ui.doctor;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import swin.rat.model.BodyPoint;
 import swin.rat.model.Task;
 import swin.rat.ui.RatApplication;
 import swin.rat.util.Utils;
@@ -62,7 +63,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 	
 	private TaskAdapter TaskAdap;
 	
-	private RatApplication theRat;
+	private RatApplication globals;
 	
 	@Override
 	public void onCreate(Bundle bundle)
@@ -72,7 +73,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		
 		Utils.receiveClosingBroadcast(this);
 		
-		theRat = ((RatApplication)getApplicationContext());
+		globals = ((RatApplication)getApplicationContext());
 		
 		// Link views with code
 		bttn = (Button) findViewById(R.id.next);
@@ -97,7 +98,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		
 		processBundle();
 		
-		fTasks = theRat.allTasks;
+		fTasks = globals.allTasks;
 		
 	
 		sortTasks();
@@ -147,8 +148,8 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		
 		if( bu.getBoolean("state") == SelectionActivity.STATE_SELECTION)
 		{
-			
-			bodyParts = theRat.bodyPartNames;
+			int last = globals.patient.consultations.size() - 1;
+			bodyParts = BodyPoint.namesOfBodyPoints(globals.patient.consultations.get(last).getPoints());
 			if(bu.containsKey("selection"))
 			{
 				if(bu.getBoolean("selection"))
@@ -217,6 +218,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		switch(item.getItemId())
 		{
 			case HOME: 
+				globals.clearPatient();
 				Utils.returnHome(this);
 				break;
 			case DELETE:

@@ -26,7 +26,7 @@ public class WebViewsActivity extends Activity
         web = (WebView)findViewById(R.id.web);
         
         ToggleButton  but = (ToggleButton) findViewById(R.id.but);
-        web.loadUrl("http://douglasfils.blogspot.com/2007/07/terminal-shell-in-eclipse.html");
+        web.loadUrl("http://scottawebsite.com/exercise.html");
         but.setOnCheckedChangeListener( new OnCheckedChangeListener()
         {
 

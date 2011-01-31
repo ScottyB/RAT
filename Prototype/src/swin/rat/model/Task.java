@@ -1,6 +1,5 @@
 package swin.rat.model;
 
-import java.net.URI;
 import java.util.ArrayList;
 
 import android.net.Uri;
@@ -32,11 +31,6 @@ public class Task
 		icon = null;
 		primaryImage = null;
 		videoStream = null;
-		
-	}
-	
-	public Task( Task aTask )
-	{
 		
 	}
 	

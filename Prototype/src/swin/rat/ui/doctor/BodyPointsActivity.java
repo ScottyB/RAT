@@ -1,8 +1,10 @@
 package swin.rat.ui.doctor;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import swin.rat.model.BodyPoint;
+import swin.rat.model.Consultation;
 import swin.rat.ui.RatApplication;
 import swin.rat.util.Utils;
 import android.app.Activity;
@@ -44,6 +46,7 @@ public class BodyPointsActivity extends Activity implements OnTouchListener, OnC
 	private ImageView mImage;
 	private float mScaleFactor;
 	private int mViewCount;
+	private RatApplication globals;
 	
 	@Override
 	public void onCreate(Bundle b)
@@ -64,7 +67,7 @@ public class BodyPointsActivity extends Activity implements OnTouchListener, OnC
 		mViewCount = mLayout.getChildCount();
 		
 		Utils.receiveClosingBroadcast(this);
-				
+		globals = (RatApplication)getApplicationContext();		
 		Bitmap temp = BitmapFactory.decodeResource(getResources(),R.drawable.muscles);
 		BitmapDrawable bit = new BitmapDrawable(temp);
         Matrix matrix = new Matrix();
@@ -129,7 +132,7 @@ public class BodyPointsActivity extends Activity implements OnTouchListener, OnC
 			{
 				for ( BodyPoint bo: mPoints)
 				{
-					if( s.equals(bo.getName()))
+					if( s.equals(bo.bodyPointName))
 					{
 						mMarkers.add(new Point(bo.x+75,bo.y));
 						ImageView img = new ImageView(this);
@@ -149,11 +152,30 @@ public class BodyPointsActivity extends Activity implements OnTouchListener, OnC
 	@Override
 	public void onClick(View arg0) 
 	{
+		
 		if( mViewCount != mLayout.getChildCount())
 		{
+			loadPoints();
 			Intent myIntent = new Intent(BodyPointsActivity.this, SelectionActivity.class);
-			populateBundle();
+			
+			ArrayList<BodyPoint> temp = new ArrayList<BodyPoint>();
+			Calendar now = Calendar.getInstance();
+			for(int i=0; i<mMarkers.size(); i++)
+			{
+				BodyPoint bodyPoint = mPoints.get(findClosest(mMarkers.get(i)));
+				if(!temp.contains(bodyPoint))
+				{
+					temp.add(bodyPoint);
+				}
+				
+			}
+			
+			Consultation con = new Consultation(now.getTime(),temp,"Some Notes");
+			globals.patient.consultations.add(con);
+			
+			mPassBundle.putBoolean("state", SelectionActivity.STATE_SELECTION);
 			myIntent.putExtras(mPassBundle);
+			
 			startActivity(myIntent);
 		}
 		else
@@ -177,6 +199,7 @@ public class BodyPointsActivity extends Activity implements OnTouchListener, OnC
 		switch(item.getItemId())
 		{
 			case HOME: 
+				globals.clearPatient();
 				Utils.returnHome(this);
 				break;
 			case NEW:
@@ -279,24 +302,5 @@ public class BodyPointsActivity extends Activity implements OnTouchListener, OnC
 	    mPoints.add(new BodyPoint("Upper Arm",scaleX(x[5]),scaleY(y[5])));
 	}
 	
-	
-	
-	public void populateBundle()
-	{
-		loadPoints();
-		//ArrayList<String> storedNames = new ArrayList<String>();
-		RatApplication globals = (RatApplication)getApplicationContext();
 		
-		for(int i=0; i<mMarkers.size(); i++)
-		{
-			String lName = mPoints.get(findClosest(mMarkers.get(i))).getName();
-			if(!globals.bodyPartNames.contains(lName))
-			{
-				globals.bodyPartNames.add(lName);
-			}
-			
-		}
-		//mPassBundle.putStringArrayList("bodyPoints", storedNames );
-		mPassBundle.putBoolean("state", SelectionActivity.STATE_SELECTION);
-	}
 }

@@ -2,12 +2,13 @@ package swin.rat.ui.doctor;
 
 import java.util.ArrayList;
 
+import swin.rat.model.Patient;
 import swin.rat.ui.RatApplication;
 import swin.rat.util.Utils;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SearchPatientActivity extends Activity implements OnClickListener
@@ -26,7 +28,7 @@ public class SearchPatientActivity extends Activity implements OnClickListener
 	static final private int HOME = 1;
 	static final private int NEW = 2;
 	
-	private RatApplication theRat;
+	private RatApplication globals;
 	
 	@Override
 	public void onCreate(Bundle b)
@@ -36,7 +38,7 @@ public class SearchPatientActivity extends Activity implements OnClickListener
 		Utils.receiveClosingBroadcast(this);
 		mPass = new Bundle();
 		
-		theRat = (RatApplication)(getApplicationContext());
+		globals = (RatApplication)(getApplicationContext());
 		
 		Button bttn = (Button) findViewById(R.id.newBttn);
 		bttn.setOnClickListener(this);
@@ -80,6 +82,8 @@ public class SearchPatientActivity extends Activity implements OnClickListener
 		}
 		else
 		{
+			globals.patient = new Patient(((TextView)v).getText().toString(),null,null);
+			Log.w("tag","here");
 			Intent myIntent = new Intent(SearchPatientActivity.this, ConsultationHistoryActivity.class);
 			mPass.putString("name", mName.getText().toString());
 			myIntent.putExtras(mPass);

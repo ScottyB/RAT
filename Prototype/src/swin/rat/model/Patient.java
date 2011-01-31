@@ -8,7 +8,7 @@ public class Patient
 	private String phone;
 	private String email;
 	
-	ArrayList<Consultation> consultations;
+	public ArrayList<Consultation> consultations;
 
 	public Patient()
 	{
@@ -16,7 +16,7 @@ public class Patient
 	}
 	
 	/**
-	 * 
+	 * Constructor
 	 * @param aName
 	 * @param aPhone
 	 * @param anEmail
@@ -29,5 +29,14 @@ public class Patient
 		email = anEmail;
 	}
 	
+	public Consultation newestConsultation()
+	{
+		if(consultations.size() > 0)
+		{
+			int last = consultations.size() -1;
+			return consultations.get(last);
+		}
+		return null;
+	}
 	
 }

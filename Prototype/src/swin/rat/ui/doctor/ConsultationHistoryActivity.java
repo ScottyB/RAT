@@ -1,8 +1,11 @@
 package swin.rat.ui.doctor;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
+import swin.rat.model.BodyPoint;
+import swin.rat.model.Consultation;
 import swin.rat.ui.RatApplication;
 import swin.rat.util.Utils;
 import android.app.Activity;
@@ -10,6 +13,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -88,7 +92,25 @@ public class ConsultationHistoryActivity extends Activity implements OnClickList
 					temp2.add("Ankle");
 					temp2.add("Upper Leg");
 					RatApplication global = (RatApplication)getApplicationContext();
-					global.bodyPartNames = temp2;
+					
+					Calendar now = Calendar.getInstance();
+					ArrayList<BodyPoint> points = new ArrayList<BodyPoint>();
+					points.add(new BodyPoint ("Ankle",50,59));
+					points.add(new BodyPoint ("Upper Leg",2,23));
+					Consultation con = new Consultation(now.getTime(),points,"");
+					global.patient.consultations.add( con );
+					
+					Log.e("tag","top: " +global.patient.newestConsultation().addBodyPoint( new BodyPoint("Ankle",50,59)));
+					
+					
+					
+					
+					
+					Log.e("tag","bot");
+					
+					
+					
+					
 					b.putBoolean("gallery", true);
 					b.putBoolean("state", SelectionActivity.STATE_SELECTION);
 					b.putStringArrayList("activities", temp);

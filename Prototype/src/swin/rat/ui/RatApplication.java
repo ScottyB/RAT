@@ -37,7 +37,7 @@ public class RatApplication extends Application
 	
 	public Patient patient;			// Either new or found from allPatients
 	
-	public ArrayList<String> bodyPartNames; 	// Names of the temporarily selected body parts
+	//public ArrayList<String> bodyPartNames; 	// Names of the temporarily selected body parts
 	public ArrayList<Task> selectedTasks;	// Temporary assigned tasks 
 	
 	//
@@ -49,6 +49,7 @@ public class RatApplication extends Application
 	//
 	public Task task;				// To pass a selected task between activities
 	public ArrayList<Task> bodyPartTasks; 		// All body part tasks associated with task's body part
+	
 	
 	
 	
@@ -68,9 +69,9 @@ public class RatApplication extends Application
 		selectedTasks = new ArrayList<Task>();
 		allTasks = new ArrayList<Task>();
 		allPatients = new ArrayList<Patient>();
-		patient = new Patient();
+		
 		extreme = new XStream( new DomDriver());
-		bodyPartNames = new ArrayList<String>();
+		
 		
 		extreme.alias("task", Task.class);
 		extreme.alias("frame", String.class);
@@ -93,6 +94,7 @@ public class RatApplication extends Application
 					
 			for(;;)
 				allTasks.add((Task)oIn.readObject());
+			
 		} 
 		catch (ClassNotFoundException e) 
 		{
@@ -116,8 +118,14 @@ public class RatApplication extends Application
 		
 	}
 	
+	/**
+	 *  Used to remove all data associated with a patient. Does not remove them from the system.
+	 */
+	public void clearPatient()
+	{
+		patient = new Patient();
+	}
 	
-
 	
 	
 	

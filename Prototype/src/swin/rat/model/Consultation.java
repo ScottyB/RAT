@@ -6,16 +6,16 @@ import java.util.Date;
 public class Consultation 
 {
 	private Date date;
-	private ArrayList<PrescribedTask> tasks;
+	public ArrayList<PrescribedTask> tasks;
 	private String notes;
 	private ArrayList<BodyPoint> bodyPoints;
 	
-	Consultation( Date date, ArrayList<PrescribedTask> tasks, 
-						ArrayList<BodyPoint> bodyPoints, String notes)
+	
+	
+	public Consultation( Date date, ArrayList<BodyPoint> bodyPoints, String notes)
 	{
 		this.date = date;
 		this.tasks = new ArrayList<PrescribedTask>();
-		this.tasks = tasks;
 		this.bodyPoints = new ArrayList<BodyPoint>();
 		this.bodyPoints = bodyPoints;
 		this.notes = notes;
@@ -31,4 +31,27 @@ public class Consultation
 		this.tasks.add(activity);
 	}
 	
+	public boolean addBodyPoint( BodyPoint point )
+	{
+		
+		for( int i=0; i<bodyPoints.size();i++)
+		{
+			if( bodyPoints.get(i).bodyPointName == point.bodyPointName)
+				return false;
+		}
+		if( bodyPoints.contains(point))
+		{
+			return false;
+		}
+		else
+		{
+			bodyPoints.add(point);
+			return true;
+		}
+	}
+	
+	public ArrayList<BodyPoint> getPoints()
+	{
+		return bodyPoints;
+	}
 }
