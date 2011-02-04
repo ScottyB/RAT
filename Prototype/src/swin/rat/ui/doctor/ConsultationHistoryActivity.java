@@ -3,6 +3,7 @@ package swin.rat.ui.doctor;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import swin.rat.model.BodyPoint;
 import swin.rat.model.Consultation;
@@ -30,7 +31,7 @@ public class ConsultationHistoryActivity extends Activity implements OnClickList
 	static final private int HOME =1;	// Menu
 	static final private String NAME = "people";	// Name of list
 	private ListView mList;
-	
+	private RatApplication globals;
 	private TextView lName;
 	private ArrayList<HashMap<String,String>> mHeader;
 	private ArrayList<ArrayList<HashMap<String,Object>>> mChild;
@@ -43,29 +44,36 @@ public class ConsultationHistoryActivity extends Activity implements OnClickList
 		
 		Utils.receiveClosingBroadcast(this);
 		
-		
+		globals = (RatApplication) getApplicationContext();
 		Button lNew = (Button) findViewById(R.id.newBttn);
-		
+	
 		lName = (TextView) findViewById(R.id.name);
-		String name = this.getIntent().getExtras().getString("name");
+		String name = globals.patient.name;
+		
 		lName.setText(name);
+		
 		lNew.setOnClickListener(this);
+		
 		
 		mList = (ListView) findViewById(R.id.list);
 		
 		mHeader = new ArrayList<HashMap<String,String>>();
 		mChild = new ArrayList<ArrayList<HashMap<String,Object>>>();
+	
+		mList.setOnItemClickListener( this );
+		
+		ArrayList<String> temp = new ArrayList<String>();
+		
+		for(int i=0; i< globals.patient.consultations.size(); i++)
+		{
+			temp.add(globals.patient.consultations.get(i).toString());
+		}
+		Log.e("tag", "4Note for loop");
+		
 
-		 mList.setOnItemClickListener( this );
-		
-		
-		
-		
-		String [] temp ={"16-Aug-34, 1 Exercise","21-Aug-34, 4 Exercises", "03-Sep-34, 3 Exercises",
-				"01-Jan-99, 1 Exercise","03-Feb-99, 4 Exercises", "09-Mar-99, 5 Exercises"};
 		
 		mList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, temp));
-//		
+		Log.e("tag","safe");
 	}
 
 	
@@ -83,38 +91,17 @@ public class ConsultationHistoryActivity extends Activity implements OnClickList
 				 public void onClick(DialogInterface dialog, int id) 
 		           {
 					Intent myIntent = new Intent(ConsultationHistoryActivity.this, SelectionActivity.class);
-					Bundle b = new Bundle();
-					ArrayList<String> temp = new ArrayList<String>();
-					temp.add("one");
-					temp.add("two");
-					temp.add("one");
-					ArrayList<String> temp2 = new ArrayList<String>();
-					temp2.add("Ankle");
-					temp2.add("Upper Leg");
+					
+					
 					RatApplication global = (RatApplication)getApplicationContext();
 					
 					Calendar now = Calendar.getInstance();
-					ArrayList<BodyPoint> points = new ArrayList<BodyPoint>();
-					points.add(new BodyPoint ("Ankle",50,59));
-					points.add(new BodyPoint ("Upper Leg",2,23));
-					Consultation con = new Consultation(now.getTime(),points,"");
+					
+					Consultation con = new Consultation(now,globals.patient.newestConsultation().bodyPoints,"");
 					global.patient.consultations.add( con );
 					
-					Log.e("tag","top: " +global.patient.newestConsultation().addBodyPoint( new BodyPoint("Ankle",50,59)));
+								
 					
-					
-					
-					
-					
-					Log.e("tag","bot");
-					
-					
-					
-					
-					b.putBoolean("gallery", true);
-					b.putBoolean("state", SelectionActivity.STATE_SELECTION);
-					b.putStringArrayList("activities", temp);
-					myIntent.putExtras(b);
 					startActivity(myIntent);      		  
 		        	  
 			       }
@@ -126,15 +113,8 @@ public class ConsultationHistoryActivity extends Activity implements OnClickList
 		         {
 					Intent myIntent = new Intent(ConsultationHistoryActivity.this, BodyPointsActivity.class);
 					Bundle b = new Bundle();
-					ArrayList<String> temp = new ArrayList<String>();
-					temp.add("Upper Arm");
-					temp.add("Upper Leg");
-					temp.add("Stomach");
-					b.putStringArrayList("points", temp);
-					myIntent.putExtras(b);
 					startActivity(myIntent);   		  
-		        	  
-			    }
+		        }
 			});
 		AlertDialog alert = temp.create();
 		alert.show();
@@ -168,7 +148,7 @@ public class ConsultationHistoryActivity extends Activity implements OnClickList
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) 
 	{
 		Bundle b = new Bundle();
-		b.putString("number", ((TextView)v).getText().toString());
+		b.putInt("pos", position);
 		Intent myIntent = new Intent(ConsultationHistoryActivity.this, ConsultationFeedbackActivity.class);
 		myIntent.putExtras(b);
 		startActivity(myIntent);

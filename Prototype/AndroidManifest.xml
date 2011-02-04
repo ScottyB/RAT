@@ -43,7 +43,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReviewTasksActivity" 
+        <activity android:name=".ReviewTasksActivity" android:screenOrientation="landscape"
                   android:label="@string/app_name">
              <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,7 +55,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".ConsultationFeedbackActivity" android:screenOrientation="portrait"
+        <activity android:name=".ConsultationFeedbackActivity" android:screenOrientation="landscape"
                   android:label="@string/app_name">
              <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -79,7 +79,8 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-         <activity android:name="swin.rat.ui.patient.FeedbackActivity" android:screenOrientation="portrait"
+         
+         <activity android:name=".CustomizeTasksActivity" android:screenOrientation="landscape"
                   android:label="@string/app_name">
              <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

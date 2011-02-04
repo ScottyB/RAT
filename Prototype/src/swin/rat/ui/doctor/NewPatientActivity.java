@@ -41,7 +41,11 @@ public class NewPatientActivity extends Activity implements OnClickListener
 	@Override
 	public void onClick(View arg0) 
 	{
-		if(mEmail.getText().length() == 0)
+		if ( mName.getText().length() == 0 )
+		{
+			Toast.makeText(this, "Please enter a Name", Toast.LENGTH_SHORT).show();
+		}
+		else if(mEmail.getText().length() == 0)
 		{
 			Toast.makeText(this, "Please enter an Email", Toast.LENGTH_SHORT).show();
 		}	
@@ -53,8 +57,7 @@ public class NewPatientActivity extends Activity implements OnClickListener
 			}
 			else
 			{
-				
-				global.patient = new Patient(null,null, mEmail.getText().toString());
+				global.patient = new Patient(mName.getText().toString(),null, mEmail.getText().toString());
 				mEmail.setState(FormEditText.VALID);
 				Intent myIntent = new Intent();
 				myIntent.setClassName("swin.rat.ui.doctor", "swin.rat.ui.doctor.BodyPointsActivity");
@@ -70,7 +73,6 @@ public class NewPatientActivity extends Activity implements OnClickListener
 		{
 			global.clearPatient();
 			Utils.returnHome(this);
-			
 		}
 		else
 		{
@@ -81,7 +83,7 @@ public class NewPatientActivity extends Activity implements OnClickListener
 	// To check if any data will be lost if user exists screen
 	private boolean hasGotData()
 	{
-		return mEmail.isEmpty();
+		return mName.isEmpty();
 	}
 	
 	public boolean validateEmail(final String text)

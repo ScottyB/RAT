@@ -23,6 +23,7 @@
 	<text>Bend your operated leg as far as is comfortable up onto your chest.</text>
 	<repetition>0</repetition>
 	<holdTime>0</holdTime>
+	<freq>0</freq>
 </task>
 <task> 
 	<shortName>Trans. Abs. 1</shortName>
@@ -52,6 +53,7 @@
 	</frameTimes>
 	<videoStream>http://www2.warwick.ac.uk/fac/med/research/csri/orthopaedics/patientinfo/physio/stagei/transabstage1</videoStream>
 	<text>Lie flat on your back with both knees bent and both feet flat on the ground. Place a small rolled up towel in the small of your back. Tighten your stomach muscles.</text>
+	<freq>0</freq>
 	<repetition>10</repetition>
 	<holdTime>10</holdTime>
 </task>
@@ -120,7 +122,7 @@
 			<frameTime>1000</frameTime>
 		</frameTimes>
 		<videoStream>http://www2.warwick.ac.uk/fac/med/research/csri/orthopaedics/patientinfo/physio/stageii/superperson</videoStream>
-		<text>Kneel on all-fours with your hands and knees a shoulder-with apart. Keeping your spine straight, raise your right arm in front of you and your left leg behind you at the same time.
+		<text>Kneel on all-fours with your hands and knees a shoulder-width apart. Keeping your spine straight, raise your right arm in front of you and your left leg behind you at the same time.
 Try to form a straight line from your fingertips to your toes. Repeat with your left arm and right leg.</text>
 		<freq>2</freq>
 		<repetition>5</repetition>

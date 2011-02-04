@@ -38,7 +38,7 @@ public class BodyPointsActivity extends Activity implements OnTouchListener, OnC
 	static final private int HOME = 1;
 	static final private int NEW = 2;
 		
-	private Bundle mPassBundle;
+	//private Bundle mPassBundle;
 	private ArrayList<BodyPoint> mPoints;
 	private ArrayList<Point> mMarkers;
 	private RelativeLayout mLayout;
@@ -58,7 +58,7 @@ public class BodyPointsActivity extends Activity implements OnTouchListener, OnC
 		mPoints = new ArrayList<BodyPoint>();
 		mMarkers = new ArrayList<Point>();
 		mLastPoint = new Point(0,0);
-		mPassBundle = new Bundle();
+	//	mPassBundle = new Bundle();
 		
 		// Link code with UI components
 		Button bttn = (Button) findViewById(R.id.newBttn);
@@ -150,9 +150,15 @@ public class BodyPointsActivity extends Activity implements OnTouchListener, OnC
 	}
 	
 	@Override
+	public void onBackPressed()
+	{
+		globals.patient.newestConsultation().clearPoints();
+		super.onBackPressed();
+	}
+	
+	@Override
 	public void onClick(View arg0) 
 	{
-		
 		if( mViewCount != mLayout.getChildCount())
 		{
 			loadPoints();
@@ -169,13 +175,9 @@ public class BodyPointsActivity extends Activity implements OnTouchListener, OnC
 				}
 				
 			}
-			
-			Consultation con = new Consultation(now.getTime(),temp,"Some Notes");
+			Consultation con = new Consultation(now,temp,"Some Notes");
 			globals.patient.consultations.add(con);
-			
-			mPassBundle.putBoolean("state", SelectionActivity.STATE_SELECTION);
-			myIntent.putExtras(mPassBundle);
-			
+			//myIntent.putExtras(mPassBundle);
 			startActivity(myIntent);
 		}
 		else

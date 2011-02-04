@@ -51,20 +51,12 @@ public class SearchPatientActivity extends Activity implements OnClickListener
 		
         mName = (AutoCompleteTextView) findViewById(R.id.auto);
         mStoredNames = new ArrayList<String>();
-        mStoredNames.add("Scott1");
-        mStoredNames.add("Scott2");
-        mStoredNames.add("Scott123");
-        mStoredNames.add("Scott3");
-        mStoredNames.add("Scott456");
-        mStoredNames.add("Scott45");
-        mStoredNames.add("Scott3456");
-        mStoredNames.add("Scott3462");
-        mStoredNames.add("Scott13");
-        mStoredNames.add("Scott4526");
-        mStoredNames.add("Scott145");
-        mStoredNames.add("Scott43456");
-        mStoredNames.add("Scott38462");
-        mStoredNames.add("Scott0913");
+        
+        for( int i=0; i<globals.allPatients.size() ; i++)
+        {
+        	mStoredNames.add(globals.allPatients.get(i).name);
+        	
+        }
        
         
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.doc_autocomplete_list_item, mStoredNames);
@@ -82,11 +74,10 @@ public class SearchPatientActivity extends Activity implements OnClickListener
 		}
 		else
 		{
-			globals.patient = new Patient(((TextView)v).getText().toString(),null,null);
-			Log.w("tag","here");
+			globals.patient = globals.findPatient(mName.getText().toString());
+			if(globals.patient == null )
+				Log.i("tag",((TextView)v).getText().toString());
 			Intent myIntent = new Intent(SearchPatientActivity.this, ConsultationHistoryActivity.class);
-			mPass.putString("name", mName.getText().toString());
-			myIntent.putExtras(mPass);
 			startActivity(myIntent);
 		}
 	}

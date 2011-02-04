@@ -2,11 +2,14 @@ package swin.rat.model;
 
 import java.util.ArrayList;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
 public class Patient 
 {
-	private String name;
-	private String phone;
-	private String email;
+	public String name;
+	public String phone;
+	public String email;
 	
 	public ArrayList<Consultation> consultations;
 
@@ -37,6 +40,14 @@ public class Patient
 			return consultations.get(last);
 		}
 		return null;
+	}
+	
+	public String toXmlString()
+	{
+		XStream stream = new XStream( new DomDriver());
+		stream.alias("patient", Patient.class);
+		stream.alias("consultations", Consultation.class);
+		return stream.toXML(this);
 	}
 	
 }

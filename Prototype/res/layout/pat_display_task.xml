@@ -4,54 +4,96 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	>
+	
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:textSize="30sp"
-		android:layout_margin="5dp"
+		android:textSize="20sp"
+		android:layout_margin="2dp"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentLeft="true"
 		android:id="@+id/name"/>
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:textSize="15sp"
-		android:layout_margin="5dp"
-		android:layout_below="@id/name"
-		android:layout_alignParentLeft="true"
-		android:id="@+id/des"/>	
+	
+	
 	<ImageView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/des"
-		android:layout_alignParentRight="true"
+		android:layout_below="@+id/des"
+		android:minWidth="300dp"
+		android:minHeight="118dp"
 		android:layout_margin="5dp"
 		android:id="@+id/img"/>	
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentLeft="true"
-		android:layout_below="@id/des"
-		android:layout_toRightOf="@id/img"
-		android:textSize="15sp"
-		android:layout_margin="5dp"
-		android:id="@+id/data"
-		/>
 	
-	<Button	
+	<LinearLayout
+		android:layout_toRightOf="@id/img"
+		android:layout_alignParentTop="true"
+		android:id="@+id/lin"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"	
+		android:layout_marginLeft="10dp"
+		>
+	
+		
+		<TextView
+		android:layout_width="wrap_content"
+		android:textSize="15sp"
+		android:layout_height="wrap_content"
+		android:text="Repetitions"
+		/>
+		<swin.rat.util.FormEditText
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:inputType="number"
+		android:id="@+id/reps"
+		/>
+		<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Next"
-		android:layout_alignParentBottom="true"
+		android:textSize="15sp"
+		android:text="Frequency"
+		/>
+		<swin.rat.util.FormEditText
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:inputType="number"
+		android:id="@+id/freq"
+		/>
+		<RadioGroup
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+       	android:orientation="horizontal"
+    	>
+    	<RadioButton android:text="Fun" 
+    		android:checked="true" 
+    		android:id="@+id/fun"	/>
+    	<RadioButton android:text="Not Fun" 
+    		android:id="@+id/notfun"	/>
+		</RadioGroup>
+		<Button	
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="save"
 		android:layout_margin="5dp"
 		android:id="@+id/review"
 		style="@style/button"
 		/>	
+	</LinearLayout>
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="15sp"
+		android:layout_margin="2dp"
+		android:layout_below="@id/name"
+		android:layout_alignParentLeft="true"
+		android:layout_toLeftOf="@id/lin"
+		android:id="@+id/des"/>	
+	
 	<Button
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentRight="true"
-		android:layout_alignParentTop="true"
+		android:layout_alignParentBottom="true"
 		android:background="@drawable/ic_menu_forward"
 		android:id="@+id/next"
 		/>
@@ -59,8 +101,9 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_toLeftOf="@id/next"
-		android:layout_alignParentTop="true"
+		android:layout_alignParentBottom="true"
 		android:background="@drawable/ic_menu_back"
+		
 		android:id="@+id/back"
 		/>
 </RelativeLayout>

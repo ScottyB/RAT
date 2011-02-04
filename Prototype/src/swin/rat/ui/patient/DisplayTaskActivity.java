@@ -4,8 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import swin.rat.model.Feedback;
 import swin.rat.model.PrescribedTask;
-import swin.rat.model.Task;
+import swin.rat.model.TaskTemplate;
 import swin.rat.ui.RatApplication;
 import swin.rat.ui.doctor.R;
 import swin.rat.util.PatLib;
@@ -20,13 +21,15 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class DisplayTaskActivity extends Activity implements OnClickListener
 {
-	private Task task;
+	private PrescribedTask task;
 	private AnimationDrawable anima;
 	private ImageView img;
 	private BitmapDrawable still;
@@ -36,7 +39,9 @@ public class DisplayTaskActivity extends Activity implements OnClickListener
 	private TextView data;
 	private Button forward;
 	private Button back;
-	private ArrayList<Task> selected;
+	private EditText repsText;
+	private EditText freqText;
+	private ArrayList<TaskTemplate> selected;
 	
 	
 	
@@ -51,48 +56,57 @@ public class DisplayTaskActivity extends Activity implements OnClickListener
 		txt = (TextView) findViewById(R.id.name);
 		des = (TextView) findViewById(R.id.des);
 		data = (TextView) findViewById(R.id.data);
-		
+		repsText = (EditText) findViewById(R.id.reps);
+		freqText = (EditText) findViewById(R.id.freq);
 		forward = (Button) findViewById(R.id.next);
 		back = (Button) findViewById(R.id.back);
 		
 		img = (ImageView) findViewById(R.id.img);
 		still = new BitmapDrawable();
-		task = new Task();
+		task = new PrescribedTask();
 		globals = ((RatApplication)getApplicationContext());
-		task = globals.task;
-		selected = new ArrayList<Task>();
-		selected = globals.allTasks;
+		task = globals.prescribedTask;
+		selected = new ArrayList<TaskTemplate>();
+		selected = (ArrayList<TaskTemplate>) globals.taskFactory.tasks;
 		
 		
+	   // des.setMovementMethod(new ScrollingMovementMethod());
 		loadTask();
 		
 		
-		Button review = (Button) findViewById(R.id.review);
+		Button saveBttn = (Button) findViewById(R.id.review);
 		Bundle bundle = getIntent().getExtras();
-		if(bundle != null)
-		{
-			if(bundle.containsKey("ref"))
-			{
-				reference = bundle.getInt("ref");
-			}
-		}
-		else
-		{
-			review.setVisibility(View.INVISIBLE);
-			forward.setVisibility(View.INVISIBLE);
-			back.setVisibility(View.INVISIBLE);
-		}
 		
-		review.setOnClickListener(new OnClickListener()
+		reference = bundle.getInt("ref");
+	
+		saveBttn.setOnClickListener(new OnClickListener()
 		{
 
 			@Override
 			public void onClick(View arg0) 
 			{
-				globals.task = task;
-				Intent myIntent = new Intent(DisplayTaskActivity.this, FeedbackActivity.class);
-				startActivity(myIntent);
+				Integer reps = Integer.parseInt(repsText.getText().toString());
+				Integer freq = Integer.parseInt(freqText.getText().toString());
+				boolean isFun;
+				RadioButton funBttn = (RadioButton) findViewById(R.id.fun);
+				isFun = funBttn.isChecked(); 
+				Log.i("tag","IS FUN: " + isFun);
+				Feedback feedback = new Feedback(isFun, reps, freq);
+				task.feedback = feedback;
+				
+				int location = globals.patient.newestConsultation().getTaskLocation(task);
+				globals.patient.newestConsultation().tasks.set(location, task); 
+				
+				
+				Intent resultIntent = new Intent();
+				resultIntent.putExtra("isSaved",true);
+				resultIntent.putExtra("ref", reference);
+				setResult(Activity.RESULT_OK, resultIntent);
 				finish();
+				
+				
+				
+				
 			}
 			
 		});
@@ -122,22 +136,18 @@ public class DisplayTaskActivity extends Activity implements OnClickListener
 	
 	}
 	
+	
+	
+	
 		
 	private void loadTask()
 	{
-		String dataString = "";
-		if( task.repetition != null)
-			dataString += "Repetitions: " + task.repetition +'\n';
-		if( task.holdTime != null)
-			dataString +=  "Hold Time: " + task.holdTime + '\n';
-		
-		data.setText(dataString);
-		
 		txt.setText(task.longName);
 		des.setText(task.text);
-		
+		repsText.setText(task.repetition.toString());
+		freqText.setText(task.freq.toString());
 		anima = new AnimationDrawable();
-		Log.e("tag", "IdddddO Exception");
+		
 		try {
 			Log.e("tag",""+task.getFrames().get(0));
 			still = new BitmapDrawable( MediaStore.Images.Media.getBitmap(getContentResolver(), task.getFrames().get(0)));
@@ -151,17 +161,11 @@ public class DisplayTaskActivity extends Activity implements OnClickListener
 			Log.e("tag", "IO Exception");
 		}
 		
-		int w = still.getIntrinsicWidth();
-		int h = still.getIntrinsicHeight();
-		img.setMinimumWidth( w * 2 );
-		img.setMinimumHeight( h * 2);
-		Log.e("tag","Safe ");
 		for( int i=0; i<task.getFrames().size(); i++)
 		{
 			Bitmap temp1;
 			try {
 				temp1 = MediaStore.Images.Media.getBitmap(getContentResolver(), task.getFrames().get(i));
-				Log.i("tag", "hello1");
 				BitmapDrawable drw = new BitmapDrawable(temp1);
 				img.setBackgroundDrawable(drw);
 				anima.addFrame(drw, task.frameTimes.get(i)*1000);
@@ -179,8 +183,8 @@ public class DisplayTaskActivity extends Activity implements OnClickListener
 	@Override
 	public void onClick(View view) 
 	{
-		ArrayList<Task> temp = new ArrayList<Task>();
-		temp = globals.allTasks;
+		ArrayList<PrescribedTask> temp = new ArrayList<PrescribedTask>();
+		temp = (ArrayList<PrescribedTask>) globals.patient.newestConsultation().tasks;
 		if( view.getId() == forward.getId() )
 		{
 			if( reference+1 < temp.size() )

@@ -1,34 +1,19 @@
 package swin.rat.model;
 
-public class PrescribedTask extends Task 
+public class PrescribedTask extends TaskTemplate 
 {
-	public String notes;
+	
 	public Feedback feedback;
+	public boolean isCompleted;
 	
 	public PrescribedTask()
 	{
 		super();
 		feedback = new Feedback();
-		notes = null;
+		isCompleted = false;
 	}
+		
 	
-	
-	public PrescribedTask( Task aTask )
-	{
-		super.frameTimes = aTask.frameTimes;
-		super.freq = aTask.freq;
-		super.holdTime = aTask.holdTime;
-		super.longName = aTask.longName;
-		super.shortName = aTask.longName;
-		super.text = aTask.text;
-		super.bodyZones = aTask.bodyZones;
-		super.frames = aTask.frames;
-		super.videoStream = aTask.videoStream;
-		super.icon = aTask.icon;
-		super.primaryImage = aTask.primaryImage;
-		feedback = new Feedback();
-		notes = null;
-	}
 	
 	/**
 	 * Change parameters if Activity is updated
@@ -41,7 +26,8 @@ public class PrescribedTask extends Task
 		super();
 		super.holdTime = holdTime;
 		super.repetition = reps;
-		this.notes = notes;
+		feedback = new Feedback();
+		isCompleted = false;
 	}
 	
 }

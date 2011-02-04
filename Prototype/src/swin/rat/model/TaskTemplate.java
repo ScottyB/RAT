@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import android.net.Uri;
 
-public class Task
+public class TaskTemplate
 {
 	public String shortName;
 	public String longName;
@@ -21,7 +21,7 @@ public class Task
 	public Double holdTime;
 	public Integer freq;
 	
-	public Task()
+	public TaskTemplate()
 	{
 		bodyZones = new ArrayList<String>();
 		frames = new ArrayList<String>();

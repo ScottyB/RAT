@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import swin.rat.model.BodyPoint;
-import swin.rat.model.Task;
+import swin.rat.model.TaskTemplate;
 import swin.rat.ui.RatApplication;
 import swin.rat.util.Utils;
 import android.app.Activity;
@@ -37,8 +37,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 {
 	static final private int HOME = 1;
 	static final private int DELETE = 2;
-	static final public boolean STATE_SELECTION = true;
-	static final public boolean STATE_DISPLAY = false;
+	
 	private boolean mState;
 	
 	private Gallery gallerySelection;
@@ -54,10 +53,10 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		
 	private Button bttn;
 	
-	private ArrayList<Task> fTasks;			// All the Tasks stored in the xml file
+	private ArrayList<TaskTemplate> fTasks;			// All the Tasks stored in the xml file
 	
-	private ArrayList<Task> selectedTasks;		// 
-	private ArrayList<ArrayList<Task>> sortedTasks;
+	private ArrayList<TaskTemplate> selectedTasks;		// 
+	private ArrayList<ArrayList<TaskTemplate>> sortedTasks;
 	private ArrayList<String> bodyParts;			// For the list, copy of global bodyPartNames
 	private int currentBodyPart; 			// Find the name by accessing bodyParts
 	
@@ -85,10 +84,10 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 				
 		// Intialisations
 		selectAdap = new SelectionAdapter(this);
-		fTasks = new ArrayList<Task>();
-		sortedTasks = new ArrayList<ArrayList<Task>>();
+		fTasks = new ArrayList<TaskTemplate>();
+		sortedTasks = new ArrayList<ArrayList<TaskTemplate>>();
 		bodyParts = new ArrayList<String>();
-		selectedTasks = new ArrayList<Task>();
+		selectedTasks = new ArrayList<TaskTemplate>();
 		gallerySelection.setSpacing(10);
 		galleryTask.setSpacing(20);
 		currentBodyPart = 0;
@@ -98,7 +97,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		
 		processBundle();
 		
-		fTasks = globals.allTasks;
+		fTasks = (ArrayList<TaskTemplate>) globals.taskFactory.tasks;
 		
 	
 		sortTasks();
@@ -144,24 +143,10 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 	private void processBundle()
 	{
 		
-		Bundle bu = getIntent().getExtras();
+		int last = globals.patient.consultations.size() - 1;
+		bodyParts = BodyPoint.namesOfBodyPoints(globals.patient.consultations.get(last).getPoints());
 		
-		if( bu.getBoolean("state") == SelectionActivity.STATE_SELECTION)
-		{
-			int last = globals.patient.consultations.size() - 1;
-			bodyParts = BodyPoint.namesOfBodyPoints(globals.patient.consultations.get(last).getPoints());
-			if(bu.containsKey("selection"))
-			{
-				if(bu.getBoolean("selection"))
-				{
-					setUpSelected(bu.getStringArrayList("activities"));
-				}
-			}
-		}
-		else
-		{
-			
-		}
+		
 		Collections.sort(bodyParts);
 		name.setText(bodyParts.get(0) + " Tasks");
 		des.setText("Tap an activity to add it to selection");
@@ -174,22 +159,6 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 	
 	
 	
-	private void setUpSelected( ArrayList<String> activities )
-	{
-		for( String str : activities)
-		{
-			for(Task e: fTasks)
-			{
-				if(str.equals(e.shortName))
-				{
-					selectedTasks.add(e);
-				}
-				
-			}
-		}
-		gallerySelection.setAdapter(selectAdap);
-		
-	}
 	
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu)
@@ -202,12 +171,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 	
 	
 	
-	@Override
-	public void onPause()
-	{
-		super.onPause();
-		// Save selection before changing???
-	}
+	
 	
 	
 	
@@ -245,7 +209,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		
 		if( parent.getId() == galleryTask.getId() )
 		{
-			Task temp = new Task();
+			TaskTemplate temp = new TaskTemplate();
 			temp = sortedTasks.get(currentBodyPart).get(position);
 			if( selectedTasks.contains(temp))
 			{
@@ -364,7 +328,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 			}
 			else
 			{
-				Intent myIntent = new Intent(SelectionActivity.this, ReviewTasksActivity.class);
+				Intent myIntent = new Intent(SelectionActivity.this, CustomizeTasksActivity.class);
 				((RatApplication)getApplicationContext()).selectedTasks = selectedTasks;
 				startActivity(myIntent);
 			}	
@@ -379,8 +343,8 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 	{
 		for( String s: bodyParts)
 		{
-			ArrayList<Task> temp = new ArrayList<Task>();
-			for(Task e:fTasks)
+			ArrayList<TaskTemplate> temp = new ArrayList<TaskTemplate>();
+			for(TaskTemplate e:fTasks)
 			{
 				if( e.isForBodyPart(s))
 				{

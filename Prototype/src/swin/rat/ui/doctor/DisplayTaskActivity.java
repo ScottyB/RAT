@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import swin.rat.model.PrescribedTask;
-import swin.rat.model.Task;
+import swin.rat.model.TaskTemplate;
 import swin.rat.ui.RatApplication;
 
 import android.app.Activity;
@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 public class DisplayTaskActivity extends Activity implements OnClickListener
 {
-	private Task task;
+	private TaskTemplate task;
 	private AnimationDrawable anima;
 	private ImageView img;
 	private BitmapDrawable still;
@@ -36,7 +36,7 @@ public class DisplayTaskActivity extends Activity implements OnClickListener
 	private Button forward;
 	private Button back;
 	private Button add;
-	private ArrayList<Task> selected;
+	private ArrayList<TaskTemplate> selected;
 	
 	
 	
@@ -57,10 +57,10 @@ public class DisplayTaskActivity extends Activity implements OnClickListener
 		
 		img = (ImageView) findViewById(R.id.img);
 		still = new BitmapDrawable();
-		task = new Task();
+		task = new TaskTemplate();
 		globals = ((RatApplication)getApplicationContext());
 		task = globals.task;
-		selected = new ArrayList<Task>();
+		selected = new ArrayList<TaskTemplate>();
 		selected = globals.selectedTasks;
 		
 		
@@ -187,7 +187,7 @@ public class DisplayTaskActivity extends Activity implements OnClickListener
 	@Override
 	public void onClick(View view) 
 	{
-		ArrayList<Task> temp = new ArrayList<Task>();
+		ArrayList<TaskTemplate> temp = new ArrayList<TaskTemplate>();
 		temp = globals.bodyPartTasks;
 		if( view.getId() == forward.getId() )
 		{

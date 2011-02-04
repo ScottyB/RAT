@@ -1,81 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-   <TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="Feedback"
-    android:textSize="30sp"
-    android:id="@+id/title"
-    />
-	<ListView
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		>
+		<TableLayout 
+		android:layout_margin="5dip"
+		android:stretchColumns="*"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/list"
-		android:layout_weight="1"
-		/>    
-	<TableLayout
-		android:layout_margin="20dip"
-		android:stretchColumns="2"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
+		android:id="@+id/table"
 		>
 		<TableRow>
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textSize="20sp"
-				android:text="Difficulty"
-				/>
-			<TextView
-				android:layout_marginLeft="50dp"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textSize="20sp"
-				android:text="6"
-				/>
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="30sp"
+			android:text="Feedback"
+			/>
 		</TableRow>
 		<TableRow>
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:textSize="20sp"
-				android:text="Repetitions"
+				android:textSize="25sp"
+				android:text="Exercises"
 				/>
-			<TextView
-				android:layout_marginLeft="50dp"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textSize="20sp"
-				android:text="35"
-				/>
-		</TableRow>
-		<TableRow>
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:textSize="20sp"
-				android:text="Days skipped"
+				android:textSize="25sp"
+				android:gravity="left"
+				android:text="Reps"
 				/>
 			<TextView
-				android:layout_marginLeft="50dp"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:textSize="20sp"
-				android:text="2"
+				android:textSize="25sp"
+				android:gravity="left"
+				android:text="Freq"
 				/>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="25sp"
+				android:gravity="center"
+				android:text="Fun"
+				/>
+		
 		</TableRow>
 		
 		</TableLayout>
-		
-		
-	<Button
+		<Button
 	style="@style/button"
 	android:text="Assign new exercises"
 	android:id="@+id/newBttn"
+	android:layout_alignParentBottom="true"
+	android:layout_alignParentLeft="true"
 	/>
+		
+</RelativeLayout>
+		
+		
 	
-</LinearLayout>

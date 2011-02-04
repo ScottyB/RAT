@@ -10,24 +10,39 @@
     android:layout_height="wrap_content" 
     android:text="Selected Exercises"
     android:id="@+id/view"
-    android:textSize="20sp"
+    android:textSize="25sp"
     />
-   <GridView
-   	android:layout_below="@id/view"
-  	android:layout_width="fill_parent"
-  	android:layout_height="fill_parent"
-  	android:id="@+id/grid"
-  	android:columnWidth="90dp"
- 	 android:numColumns="auto_fit"
- 	 android:verticalSpacing="5dp"
- 	 android:horizontalSpacing="5dp"
-  	 android:stretchMode="columnWidth"
-  	 android:gravity="center"
-  >
+ <TableLayout 
+		android:stretchColumns="*"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/view"
+		android:id="@+id/table" 
+		 
+		>
+		<TableRow>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="20sp"
+				android:text="Exercises"
+				/>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="20sp"
+				android:text="Reps"
+				/>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="20sp"
+				android:text="Freq"
+				/>
+			</TableRow>
+		</TableLayout>
    
-</GridView>
-   
-    <EditText
+    <swin.rat.util.FormEditText
     	android:layout_width="fill_parent"
     	android:id="@+id/txt"
     	android:layout_height="wrap_content"
@@ -35,8 +50,7 @@
     	android:hint="Notes"
     	android:layout_weight="1"
     	android:gravity="top"
-    	android:minLines="10"
-    	android:maxLines="10"
+    	android:maxLines="5"
     	/>
     	
     <Button

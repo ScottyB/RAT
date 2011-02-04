@@ -1,22 +1,26 @@
 package swin.rat.ui.doctor;
 
+import swin.rat.ui.RatApplication;
 import swin.rat.util.Utils;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class DoctorHomeActivity extends Activity 
 {
+	private Context context;
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.doc_home);
-        
+        context = this;
         Utils.receiveClosingBroadcast(this);
         
         Button newBttn = (Button) findViewById(R.id.newBttn);
@@ -29,10 +33,17 @@ public class DoctorHomeActivity extends Activity
 			@Override
 			public void onClick(View arg0) 
 			{
-				Intent myIntent = new Intent();
-				myIntent.setClassName("swin.rat.ui.doctor", "swin.rat.ui.patient.PatientHomeActivity");
-				startActivity(myIntent);
-				
+				RatApplication globals = (RatApplication) getApplicationContext();
+				if( globals.patient == null )
+				{
+					Toast.makeText(context, "No patient in system", Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					Intent myIntent = new Intent();
+					myIntent.setClassName("swin.rat.ui.doctor", "swin.rat.ui.patient.PatientHomeActivity");
+					startActivity(myIntent);
+				}
 			}
         	
         });
@@ -57,9 +68,17 @@ public class DoctorHomeActivity extends Activity
 			@Override
 			public void onClick(View arg0) 
 			{
-				Intent myIntent = new Intent();
-				myIntent.setClassName("swin.rat.ui.doctor","swin.rat.ui.doctor.SearchPatientActivity");
-				startActivity(myIntent);
+				RatApplication globals = (RatApplication) getApplicationContext();
+				if(globals.allPatients.size() != 0 )
+				{
+					Intent myIntent = new Intent();
+					myIntent.setClassName("swin.rat.ui.doctor","swin.rat.ui.doctor.SearchPatientActivity");
+					startActivity(myIntent);
+				}
+				else
+				{
+					Toast.makeText(context, "No patients in system", Toast.LENGTH_SHORT).show();
+				}
 			}
         });
     }

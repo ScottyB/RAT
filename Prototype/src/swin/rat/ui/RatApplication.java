@@ -1,22 +1,22 @@
 package swin.rat.ui;
 
-import java.io.EOFException;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 import swin.rat.model.Patient;
 import swin.rat.model.PrescribedTask;
-import swin.rat.model.Task;
+import swin.rat.model.TaskFactory;
+import swin.rat.model.TaskTemplate;
 import swin.rat.ui.doctor.R;
 import android.app.Application;
-import android.net.Uri;
+import android.content.Context;
+import android.content.res.Resources.NotFoundException;
 import android.util.Log;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 
 /**
@@ -28,6 +28,8 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
  */
 public class RatApplication extends Application
 {
+	static public final String FILENAME = "Patient";
+	
 	//////////////////////////// Patient Application Variables //////////////////////////////////// 
 	public ArrayList< PrescribedTask > tasks;
 	
@@ -38,7 +40,7 @@ public class RatApplication extends Application
 	public Patient patient;			// Either new or found from allPatients
 	
 	//public ArrayList<String> bodyPartNames; 	// Names of the temporarily selected body parts
-	public ArrayList<Task> selectedTasks;	// Temporary assigned tasks 
+	public ArrayList<TaskTemplate> selectedTasks;	// Temporary assigned tasks 
 	
 	//
 	//	The following variables are used in conjunction with the DisplayTaskActivity class. Values
@@ -47,15 +49,17 @@ public class RatApplication extends Application
 	//	task, the first task to display
 	//	bodyPartTasks, all tasks that should be looped through and displayed
 	//
-	public Task task;				// To pass a selected task between activities
-	public ArrayList<Task> bodyPartTasks; 		// All body part tasks associated with task's body part
-	
+	public TaskTemplate task;				// To pass a selected task between activities
+	public ArrayList<TaskTemplate> bodyPartTasks; 		// All body part tasks associated with task's body part
+	public PrescribedTask prescribedTask;
 	
 	
 	
 	// Data that should be stored elsewhere
-	private ArrayList<Patient> allPatients;
-	public ArrayList<Task> allTasks;
+	public ArrayList<Patient> allPatients;
+	
+	
+	public TaskFactory taskFactory;
 	
 	private XStream extreme; 			// Used to convert xml to POJO and back again
 	
@@ -64,60 +68,31 @@ public class RatApplication extends Application
 	{
 		super.onCreate();
 		
-		task = new Task();
-		bodyPartTasks = new ArrayList<Task>();
-		selectedTasks = new ArrayList<Task>();
-		allTasks = new ArrayList<Task>();
-		allPatients = new ArrayList<Patient>();
+		task = new TaskTemplate();
+		bodyPartTasks = new ArrayList<TaskTemplate>();
+		selectedTasks = new ArrayList<TaskTemplate>();
+		prescribedTask = new PrescribedTask();
+		//allTasks = new ArrayList<TaskTemplate>();
+		taskFactory = new TaskFactory();
+		try {
+			taskFactory.loadTasks(new InputStreamReader(getResources().openRawResource(R.raw.tasks)));
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		allPatients = new ArrayList<Patient>(0);
 		
-		extreme = new XStream( new DomDriver());
 		
-		
-		extreme.alias("task", Task.class);
-		extreme.alias("frame", String.class);
-		extreme.alias("bodyZone", String.class);
-        extreme.alias("frameTime", Integer.class);
-		
-        loadTasks();
 		
 	}
 	
-	// Loads all the tasks from file and stores them
-	private void loadTasks()
-	{
-		ObjectInputStream oIn = null; 
-		InputStreamReader in = new InputStreamReader(getResources().openRawResource(R.raw.tasks));
 		
-		try 
-		{
-			oIn = extreme.createObjectInputStream(in);
-					
-			for(;;)
-				allTasks.add((Task)oIn.readObject());
-			
-		} 
-		catch (ClassNotFoundException e) 
-		{
-			e.printStackTrace();
-		}
-		catch ( EOFException e)
-		{
-			// When end of file
-			try 
-			{
-				oIn.close();
-			} catch (IOException e1) 
-			{
-				
-			}
-		}
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
-		
-	}
-	
 	/**
 	 *  Used to remove all data associated with a patient. Does not remove them from the system.
 	 */
@@ -126,6 +101,36 @@ public class RatApplication extends Application
 		patient = new Patient();
 	}
 	
+	public void savePatient()
+	{
+		FileOutputStream fos;
+    	try
+    	{
+    		fos = openFileOutput(FILENAME, Context.MODE_APPEND);
+    		fos.write(patient.toXmlString().getBytes());
+    		fos.close();
+    	}
+    	catch( FileNotFoundException e)
+    	{
+    		Log.e("tag", "File Not Found");
+    	}
+    	catch( IOException e)
+    	{
+    		Log.e("tag", "IOException");
+    	}
+		
+		
+	}
+	
+	public Patient findPatient( String aName )
+	{
+		for( int i=0; i<allPatients.size(); i++ )
+		{
+			if( allPatients.get(i).name.equals(aName))
+				return allPatients.get(i);
+		}
+		return null;
+	}
 	
 	
 	
