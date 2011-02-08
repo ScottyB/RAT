@@ -43,7 +43,6 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 	private Gallery gallerySelection;
 	private Gallery galleryTask;
 	private SelectionAdapter selectAdap;
-
 	
 	private String [] parts2;
 	private TextView name;
@@ -109,37 +108,16 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		
 	}
 	
-	
-	@Override
+		@Override
 	protected void onResume()
 	{
 		super.onResume();
-//		AcessObject temp = ((AcessObject)getApplicationContext());
-//		ArrayList<Task> selected = new ArrayList<Task>();
-//		selected = temp.getSelectedTasks();
-//		if(selected != null)
-//		{
-//			for(Task e: selected)
-//			{
-//				if(selectedTasks.contains(e))
-//				{
-//					// If already in selected dont change
-//					temp.setTask(null);
-//				}
-//				else
-//				{
-//					selectedTasks.add(e);
-//					temp.setTask(null);
-//					gallerySelection.setAdapter(selectAdap);
-//				}
-//			}
-//		}
+			
+		selectedTasks = globals.selectedTasks;
+		gallerySelection.setAdapter(selectAdap);
+		
 	}
-	
-	
-	
-	
-	
+			
 	private void processBundle()
 	{
 		
@@ -154,12 +132,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
         	
 		lst.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, bodyParts.toArray(parts2)));
 	}
-	
-	
-	
-	
-	
-	
+		
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu)
 	{
@@ -168,13 +141,7 @@ public class SelectionActivity extends Activity implements OnItemClickListener, 
 		
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-	
+		
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
     {

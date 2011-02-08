@@ -99,8 +99,7 @@ public class ConsultationHistoryActivity extends Activity implements OnClickList
 					
 					Consultation con = new Consultation(now,globals.patient.newestConsultation().bodyPoints,"");
 					global.patient.consultations.add( con );
-					
-								
+												
 					
 					startActivity(myIntent);      		  
 		        	  
@@ -112,7 +111,6 @@ public class ConsultationHistoryActivity extends Activity implements OnClickList
 				 public void onClick(DialogInterface dialog, int id) 
 		         {
 					Intent myIntent = new Intent(ConsultationHistoryActivity.this, BodyPointsActivity.class);
-					Bundle b = new Bundle();
 					startActivity(myIntent);   		  
 		        }
 			});

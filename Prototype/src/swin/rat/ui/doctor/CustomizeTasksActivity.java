@@ -36,7 +36,7 @@ public class CustomizeTasksActivity extends Activity implements OnClickListener
 		rows = new ArrayList<TableRow>();
 		TableLayout table = (TableLayout) findViewById(R.id.table);
 		globals = (RatApplication) getApplicationContext();
-		Log.i("tag", ""+globals.selectedTasks.size());
+		
 		for(int i=0; i < globals.selectedTasks.size();i++)
 		{
 			TableRow arow = generateRow(globals.selectedTasks.get(i));

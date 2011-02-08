@@ -18,12 +18,12 @@ public final class R {
     public static final class drawable {
         public static final int btn_check_buttonless_on=0x7f020000;
         public static final int doc_body_marker=0x7f020001;
-        public static final int ic_menu_account_list=0x7f020002;
-        public static final int ic_menu_back=0x7f020003;
-        public static final int ic_menu_compose=0x7f020004;
-        public static final int ic_menu_forward=0x7f020005;
-        public static final int ic_menu_home=0x7f020006;
-        public static final int icon=0x7f020007;
+        public static final int ic_launcher=0x7f020002;
+        public static final int ic_menu_account_list=0x7f020003;
+        public static final int ic_menu_back=0x7f020004;
+        public static final int ic_menu_compose=0x7f020005;
+        public static final int ic_menu_forward=0x7f020006;
+        public static final int ic_menu_home=0x7f020007;
         public static final int muscles=0x7f020008;
         public static final int textfield_default=0x7f020009;
     }
@@ -121,6 +121,18 @@ public final class R {
         public static final int hello=0x7f060000;
     }
     public static final class style {
+        /**  Override properties in the default theme 
+ NOTE: you must explicitly the windowTitleSize property, the title bar will not re-size automatically, text will be clipped 
+         */
+        public static final int CustomTheme=0x7f070005;
+        /**  Set the theme for the window title 
+ NOTE: setting android:textAppearence to style defined above 
+         */
+        public static final int CustomWindowTitle=0x7f070004;
+        /**  Changes the background color of the title bar 
+         */
+        public static final int CustomWindowTitleBackground=0x7f070003;
+        public static final int CustomWindowTitleText=0x7f070002;
         public static final int MyStyle=0x7f070000;
         public static final int button=0x7f070001;
     }

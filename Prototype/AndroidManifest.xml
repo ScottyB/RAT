@@ -3,7 +3,7 @@
       package="swin.rat.ui.doctor"
       android:versionCode="1"
       android:versionName="1.0">
-    <application android:icon="@drawable/icon"  android:name="swin.rat.ui.RatApplication" android:label="@string/app_name">
+    <application android:icon="@drawable/ic_launcher"  android:name="swin.rat.ui.RatApplication" android:label="@string/app_name" android:theme="@style/CustomTheme">
         <activity android:name=".DoctorHomeActivity" android:screenOrientation="portrait"
                   android:label="@string/app_name">
             <intent-filter>

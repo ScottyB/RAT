@@ -70,7 +70,20 @@ public class ConsultationFeedbackActivity extends Activity
                 LayoutParams.WRAP_CONTENT));
 		}
 		
-		
+		bttn.setOnClickListener(new OnClickListener()
+		{
+
+			@Override
+			public void onClick(View view) 
+			{
+				Intent myIntent = new Intent(ConsultationFeedbackActivity.this, BodyPointsActivity.class);
+				Bundle b = new Bundle();
+				startActivity(myIntent); 
+
+				
+			}
+			
+		});
 		
 	}
 	

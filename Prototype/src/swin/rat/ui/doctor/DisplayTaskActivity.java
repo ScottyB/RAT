@@ -67,7 +67,7 @@ public class DisplayTaskActivity extends Activity implements OnClickListener
 		loadTask();
 		Log.w("tag","TEST");
 		
-		Button review = (Button) findViewById(R.id.review);
+		Button customBttn = (Button) findViewById(R.id.review);
 		Bundle bundle = getIntent().getExtras();
 		if(bundle != null)
 		{
@@ -79,21 +79,28 @@ public class DisplayTaskActivity extends Activity implements OnClickListener
 		else
 		{
 			add.setVisibility(View.INVISIBLE);
-			review.setVisibility(View.INVISIBLE);
+			customBttn.setVisibility(View.INVISIBLE);
 			forward.setVisibility(View.INVISIBLE);
 			back.setVisibility(View.INVISIBLE);
 		}
 		
-		review.setOnClickListener(new OnClickListener()
+		customBttn.setOnClickListener(new OnClickListener()
 		{
 
 			@Override
 			public void onClick(View arg0) 
 			{
+				if( !(selected.size() == 0))
+				{
 				globals.selectedTasks = selected;
 				Intent myIntent = new Intent();
-				myIntent.setClassName("swin.rat.ui.doctor", "swin.rat.ui.doctor.ReviewTasksActivity");
+				myIntent.setClassName("swin.rat.ui.doctor", "swin.rat.ui.doctor.CustomizeTasksActivity");
 				startActivity(myIntent);
+				}
+				else
+				{
+					Toast.makeText(DisplayTaskActivity.this, "No Exercises selected", Toast.LENGTH_SHORT).show();
+				}
 				
 			}
 			
@@ -216,7 +223,7 @@ public class DisplayTaskActivity extends Activity implements OnClickListener
 			}
 			else
 			{
-				selected.add((PrescribedTask) task);
+				selected.add(task);
 				Toast.makeText(this, "Task added", Toast.LENGTH_SHORT).show();
 			}
 		}

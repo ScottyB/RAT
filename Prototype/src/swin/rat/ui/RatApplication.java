@@ -39,7 +39,7 @@ public class RatApplication extends Application
 	
 	public Patient patient;			// Either new or found from allPatients
 	
-	//public ArrayList<String> bodyPartNames; 	// Names of the temporarily selected body parts
+	
 	public ArrayList<TaskTemplate> selectedTasks;	// Temporary assigned tasks 
 	
 	//
@@ -99,6 +99,7 @@ public class RatApplication extends Application
 	public void clearPatient()
 	{
 		patient = new Patient();
+		selectedTasks.clear();
 	}
 	
 	public void savePatient()

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, Home!</string>
-    <string name="app_name">R.A.T</string>
+    <string name="app_name">The R.A.T Application</string>
     <string name="day">Please select a day:</string>
     <string-array name="days">
     	<item>Sunday</item>
